@@ -1,0 +1,115 @@
+{% extends "admin_vendor/base.html" %}
+{% load static %}
+{% block content %}
+<!-- top tiles -->
+<div class="row tile_count">
+    <div class="col-md-11">
+        <div>
+            <h3>Add Service Provider</h3>
+        </div>
+        <form class="" role="form" action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="user_name">Username</label>
+                    <input type="text" class="form-control" id="user_name" name="user_name" placeholder="Username" required>
+                </div>
+                <div class="form-group">
+                    <label for="first_name">First Name</label>
+                    <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="last_name">Last Name</label>
+                    <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone_number">Phone Number</label>
+                    <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="Phone Number" required>
+                </div>
+                <div class="form-group">
+                    <label for="user_email">Email Address</label>
+                    <input type="email" class="form-control" id="user_email" name="email" placeholder="Email Address" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" class="form-control" id="address" name="address" placeholder="Address" required>
+                </div>
+                <div class="form-group">
+                    <label for="service_point_name">Service Point Name</label>
+                    <input type="text" class="form-control" id="service_point_name" name="service_point_name" placeholder="Service Point Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="image_1">Photo 1</label>
+                    <input type="file" class="form-control" id="image_1" name="image_1" required>
+                </div>
+                <div class="form-group">
+                    <label for="image_2">Photo 2</label>
+                    <input type="file" class="form-control" id="image_2" name="image_2" required>
+                </div>
+                <div class="form-group">
+                    <label for="image_3">Photo 3</label>
+                    <input type="file" class="form-control" id="image_3" name="image_3" required>
+                </div>
+                <div class="form-group">
+                    <label for="image_4">Photo 4</label>
+                    <input type="file" class="form-control" id="image_4" name="image_4" required>
+                </div>
+                <div class="form-group">
+                    <label for="image_5">Photo 5</label>
+                    <input type="file" class="form-control" id="image_5" name="image_5" required>
+                </div>
+                <div class="form-group">
+                    <label for="about">About</label>
+                    <textarea id="about" name="about" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="services">Services</label>
+                    <textarea id="services" name="services" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="facebook_url">FB URL</label>
+                    <input type="text" class="form-control" id="facebook_url" name="facebook_url" placeholder="Facebook Page URL" required>
+                </div>
+                <div class="form-group">
+                    <label for="google_map_url">Map URL</label>
+                    <input type="text" class="form-control" id="google_map_url" name="google_map_url" placeholder="Google Map URL" required>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Service Type</label><br>
+                    {% for item in all_items %}
+                    <input type="checkbox" name="item" value="{{ item.id }}"> {{ item.item_name }}<br>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Area</label><br>
+                    {% for area in all_areas %}
+                    <input type="checkbox" name="area" value="{{ area.id }}"> {{ area.area_name }}<br>
+                    {% endfor %}
+                </div>
+                <button type="submit" class="btn btn-primary block full-width m-b">Submit</button>
+                <input type="hidden" name="submit" value="Submit" />
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    var password = document.getElementById("password")
+  , confirm_password = document.getElementById("re_password");
+
+function validatePassword(){
+  if(password.value != confirm_password.value) {
+    confirm_password.setCustomValidity("Passwords Don't Match");
+  } else {
+    confirm_password.setCustomValidity('');
+  }
+}
+
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
+</script>
+<!-- /top tiles -->
+{% endblock %}
