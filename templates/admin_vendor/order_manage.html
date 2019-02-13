@@ -1,0 +1,133 @@
+{% extends "admin_vendor/base.html" %}
+{% load static %}
+{% block content %}
+<div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <!-- Card stats -->
+      <div class="row">
+        <h1>List Of orders to Manage</h1><br>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <div class="row mt-5">
+    <div class="col-xl-12">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <div class="row align-items-center">
+            <div class="col">
+              <h3 class="mb-0">Orders(Datewise Sorted)</h3>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <!-- Projects table -->
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+            <tr>
+              <th scope="col">Issue</th>
+              <th scope="col">Type</th>
+              <th scope="col">Status</th>
+              <th scope="col">Date</th>
+              <th scope="col">Manage</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <th scope="row">Car Fixing</th>
+              <td>Engine</td>
+              <td>Pending</td>
+              <td>01/01/2019</td>
+              <td><a href="{% url 'manage' %}" class="btn btn-sm btn-primary">Manage</a></td>
+            </tr>
+            <tr>
+              <th scope="row">Car Fixing</th>
+              <td>Engine</td>
+              <td>Pending</td>
+              <td>01/01/2019</td>
+              <td><a href="{% url 'manage' %}" class="btn btn-sm btn-primary">Manage</a></td>
+            </tr>
+            <tr>
+              <th scope="row">Car Fixing</th>
+              <td>Engine</td>
+              <td>Pending</td>
+              <td>01/01/2019</td>
+              <td><a href="{% url 'manage' %}" class="btn btn-sm btn-primary">Manage</a></td>
+            </tr>
+            <tr>
+              <th scope="row">Car Fixing</th>
+              <td>Engine</td>
+              <td>Pending</td>
+              <td>01/01/2019</td>
+              <td><a href="{% url 'manage' %}" class="btn btn-sm btn-primary">Manage</a></td>
+            </tr>
+            <tr>
+              <th scope="row">Car Fixing</th>
+              <td>Engine</td>
+              <td>Pending</td>
+              <td>01/01/2019</td>
+              <td><a href="{% url 'manage' %}" class="btn btn-sm btn-primary">Manage</a></td>
+            </tr>
+            <tr>
+              <th scope="row">Car Fixing</th>
+              <td>Engine</td>
+              <td>Pending</td>
+              <td>01/01/2019</td>
+              <td><a href="{% url 'manage' %}" class="btn btn-sm btn-primary">Manage</a></td>
+            </tr>
+            <tr>
+              <th scope="row">Car Fixing</th>
+              <td>Engine</td>
+              <td>Pending</td>
+              <td>01/01/2019</td>
+              <td><a href="{% url 'manage' %}" class="btn btn-sm btn-primary">Manage</a></td>
+            </tr>
+            <tr>
+              <th scope="row">Car Fixing</th>
+              <td>Engine</td>
+              <td>Pending</td>
+              <td>01/01/2019</td>
+              <td><a href="{% url 'manage' %}" class="btn btn-sm btn-primary">Manage</a></td>
+            </tr>
+            <tr>
+              <th scope="row">Car Fixing</th>
+              <td>Engine</td>
+              <td>Pending</td>
+              <td>01/01/2019</td>
+              <td><a href="{% url 'manage' %}" class="btn btn-sm btn-primary">Manage</a></td>
+            </tr>
+            <tr>
+              <th scope="row">Car Fixing</th>
+              <td>Engine</td>
+              <td>Pending</td>
+              <td>01/01/2019</td>
+              <td><a href="{% url 'manage' %}" class="btn btn-sm btn-primary">Manage</a></td>
+            </tr>
+            <tr>
+              <th scope="row">Car Fixing</th>
+              <td>Engine</td>
+              <td>Pending</td>
+              <td>01/01/2019</td>
+              <td><a href="{% url 'manage' %}" class="btn btn-sm btn-primary">Manage</a></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="row align-items-center justify-content-xl-between">
+      <div class="col-xl-12">
+        <div class="copyright text-center text-xl-right text-muted">
+          &copy; 2019 <a href="#" class="font-weight-bold ml-1" target="_blank">Fix Kori</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+{% endblock %}

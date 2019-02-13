@@ -1,0 +1,60 @@
+{% extends "admin_vendor/base.html" %}
+{% load static %}
+{% block content %}
+<!-- top tiles -->
+<div class="row tile_count">
+    <div class="col-md-5">
+        <div>
+            <h3>Add Admin</h3>
+        </div>
+        <form class="" role="form" action="" method="POST">{% csrf_token %}
+            <div class="form-group">
+                <label for="user_name">Username</label>
+                <input type="text" class="form-control" id="user_name" name="user_name" placeholder="Username" required>
+            </div>
+            <div class="form-group">
+                <label for="first_name">First Name</label>
+                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name" required>
+            </div>
+            <div class="form-group">
+                <label for="last_name">Last Name</label>
+                <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name" required>
+            </div>
+            <div class="form-group">
+                <label for="phone_number">Phone Number</label>
+                <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="Phone Number" required>
+            </div>
+            <div class="form-group">
+                <label for="user_email">Email Address</label>
+                <input type="email" class="form-control" id="user_email" name="user_email" placeholder="Email Address" required>
+            </div>
+            <div class="form-group">
+                <label for="password">New Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="New Password" required>
+            </div>
+            <div class="form-group">
+                <label for="re_password">Confirm Password</label>
+                <input type="password" class="form-control" id="re_password" name="re_password" placeholder="Confirm Password" required>
+            </div>
+            <button type="submit" class="btn btn-primary block full-width m-b">Submit</button>
+            <input type="hidden" name="submit" value="Submit" />
+        </form>
+    </div>
+</div>
+<script>
+    var password = document.getElementById("password")
+  , confirm_password = document.getElementById("re_password");
+
+function validatePassword(){
+  if(password.value != confirm_password.value) {
+    confirm_password.setCustomValidity("Passwords Don't Match");
+  } else {
+    confirm_password.setCustomValidity('');
+  }
+}
+
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
+</script>
+<!-- /top tiles -->
+{% endblock %}

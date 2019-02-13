@@ -28,23 +28,29 @@ from utility.uuid_generator import UUID
 import constants
 
 
+class AdminIndex(View):
+    @staticmethod
+    def get(request):
+        return render(request, 'admin_vendor/admin_index.html')
+
+
 class AddArea(View):
     @staticmethod
     def get(request):
-        new_area = Area(area_name=request.GET['area_name'],
-                        district=request.GET['district'],
-                        division=request.GET['division'])
-        new_area.save()
-        return HttpResponse('New item saved!')
+        # new_area = Area(area_name=request.GET['area_name'],
+        #                 district=request.GET['district'],
+        #                 division=request.GET['division'])
+        # new_area.save()
+        return render(request, 'admin_vendor/add_area.html')
 
 
 class AddItem(View):
     @staticmethod
     def get(request):
-        new_item = Item(item_name=request.GET['item_name'],
-                        service_type=request.GET['service_type'])
-        new_item.save()
-        return HttpResponse('New item saved!')
+        # new_item = Item(item_name=request.GET['item_name'],
+        #                 service_type=request.GET['service_type'])
+        # new_item.save()
+        return render(request, 'admin_vendor/add_item.html')
 
 
 class AddAdmin(View):
@@ -185,6 +191,54 @@ class AddVendor(View):
         return render(request, 'admin_vendor/add_vendor.html',
                       {'all_areas': all_areas,
                        'all_items': all_items})
+
+
+class ListOrder(View):
+    @staticmethod
+    def get(request):
+        return render(request, 'admin_vendor/list_order.html')
+
+
+class ListUser(View):
+    @staticmethod
+    def get(request):
+        return render(request, 'admin_vendor/list_user.html')
+
+
+class ListVendor(View):
+    @staticmethod
+    def get(request):
+        return render(request, 'admin_vendor/list_vendor.html')
+
+
+class DetailOrder(View):
+    @staticmethod
+    def get(request):
+        return render(request, 'admin_vendor/detail_order.html')
+
+
+class DetailUser(View):
+    @staticmethod
+    def get(request):
+        return render(request, 'admin_vendor/detail_user.html')
+
+
+class DetailVendor(View):
+    @staticmethod
+    def get(request):
+        return render(request, 'admin_vendor/detail_vendor.html')
+
+
+class OrderManage(View):
+    @staticmethod
+    def get(request):
+        return render(request, 'admin_vendor/order_manage.html')
+
+
+class Manage(View):
+    @staticmethod
+    def get(request):
+        return render(request, 'admin_vendor/manage.html')
 
 
 def add_to_user_list(user_name, phone_number, user_email, user_id, user_type):

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% load static %}
+
+    <title>fixkori | {{ page_title }}</title>
+
+    <!-- Bootstrap -->
+    <link href="{% static 'admin_vendor/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="{% static 'admin_vendor/css/font-awesome.min.css' %}" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="{% static 'admin_vendor/css/nprogress.css' %}" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="{% static 'admin_vendor/css/green.css' %}" rel="stylesheet">
+    <!-- bootstrap-progressbar -->
+    <link href="{% static 'admin_vendor/css/bootstrap-progressbar-3.3.4.min.css' %}" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="{% static 'admin_vendor/css/jqvmap.min.css' %}" rel="stylesheet"/>
+    <!-- bootstrap-daterangepicker -->
+    <link href="{% static 'admin_vendor/css/daterangepicker.css' %}" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="{% static 'admin_vendor/css/custom.min.css' %}" rel="stylesheet">
+</head>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <a href="{% url 'add_admin' %}" class="site_title"><i style="color:#02ff00;border:1px solid #02ff00;" class="fa fa-check"></i> <span>FixKori</span></a>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <br />
+
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+                        {% if admin %}
+                        <h3>Admin</h3>
+                        <ul class="nav side-menu">
+                            <li><a href="{% url 'add_admin' %}"><i class="fa fa-check"></i> Add New Admin </a></li>
+                            <li><a href="{% url 'add_vendor' %}"><i class="fa fa-check"></i> Add New Service Provider </a></li>
+                            <li><a href="{% url 'add_user' %}"><i class="fa fa-check"></i> Add New User </a></li>
+                        </ul>
+                        {% endif %}
+                    </div>
+
+                </div>
+                <!-- /sidebar menu -->
+
+                <!-- /menu footer buttons -->
+                <div class="sidebar-footer hidden-small" style="width: 100%;padding-top: 0;">
+                    <div style="text-align: center; color: white;padding-bottom: 7px;">
+                        all rights received fixkori.co
+                    </div>
+                </div>
+                <!-- /menu footer buttons -->
+            </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+
+                    <ul class="nav navbar-nav navbar-right">
+
+                        <li class="">
+                            <a href="" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                {{ user.user_name }}
+                                <span class=" fa fa-angle-down"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                <li><a href="{% url 'add_admin' %}"><i class="fa fa-key pull-right"></i> Change Password</a></li>
+                                <li><a href="{% url 'logout' %}"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                            </ul>
+                        </li>
+                        {% if alert %}
+                            <li class="pull-left">
+                                <div class="alert alert-danger alert-dismissible" role="alert" style="margin-bottom: 0; margin-top: 2px;">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <strong>Warning!</strong> {{ message }}
+                                </div>
+                            </li>
+                        {% endif %}
+                        {% if success %}
+                            <li class="pull-left">
+                                <div class="alert alert-success alert-dismissible" role="alert" style="margin-bottom: 0; margin-top: 2px;">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <strong>{{ message }}</strong>
+                                </div>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            {% block content %}
+            {% endblock %}
+
+
+        </div>
+        <!-- /page content -->
+
+    </div>
+</div>
+
+<!-- jQuery -->
+<script src="{% static 'admin_vendor/js/jquery.min.js' %}"></script>
+<!-- Bootstrap -->
+<script src="{% static 'admin_vendor/js/bootstrap.min.js' %}"></script>
+<!-- FastClick -->
+<script src="{% static 'admin_vendor/js/fastclick.js' %}"></script>
+<!-- NProgress -->
+<script src="{% static 'admin_vendor/js/nprogress.js' %}"></script>
+<!-- Chart.js -->
+<script src="{% static 'admin_vendor/js/Chart.min.js' %}"></script>
+<!-- gauge.js -->
+<script src="{% static 'admin_vendor/js/gauge.min.js' %}"></script>
+<!-- bootstrap-progressbar -->
+<script src="{% static 'admin_vendor/js/bootstrap-progressbar.min.js' %}"></script>
+<!-- iCheck -->
+<script src="{% static 'admin_vendor/js/icheck.min.js' %}"></script>
+<!-- Skycons -->
+<script src="{% static 'admin_vendor/js/skycons.js' %}"></script>
+<!-- Flot -->
+<script src="{% static 'admin_vendor/js/jquery.flot.js' %}"></script>
+<script src="{% static 'admin_vendor/js/jquery.flot.pie.js' %}"></script>
+<script src="{% static 'admin_vendor/js/jquery.flot.time.js' %}"></script>
+<script src="{% static 'admin_vendor/js/jquery.flot.stack.js' %}"></script>
+<script src="{% static 'admin_vendor/js/jquery.flot.resize.js' %}"></script>
+<!-- Flot plugins -->
+<script src="{% static 'admin_vendor/js/jquery.flot.orderBars.js' %}"></script>
+<script src="{% static 'admin_vendor/js/jquery.flot.spline.min.js' %}"></script>
+<script src="{% static 'admin_vendor/js/curvedLines.js' %}"></script>
+<!-- DateJS -->
+<script src="{% static 'admin_vendor/js/date.js' %}"></script>
+<!-- JQVMap -->
+<script src="{% static 'admin_vendor/js/jquery.vmap.js' %}"></script>
+<script src="{% static 'admin_vendor/js/jquery.vmap.world.js' %}"></script>
+<script src="{% static 'admin_vendor/js/jquery.vmap.sampledata.js' %}"></script>
+<!-- bootstrap-daterangepicker -->
+<script src="{% static 'admin_vendor/js/moment.min.js' %}"></script>
+<script src="{% static 'admin_vendor/js/daterangepicker.js' %}"></script>
+
+<script src="{% static 'admin_vendor/js/canvasjs.min.js' %}"></script>
+
+<!-- Custom Theme Scripts -->
+<script src="{% static 'admin_vendor/js/custom.min.js' %}"></script>
+
+
+
+<!-- /gauge.js -->
+
+
+<script>
+    $(document).ready(function() {
+        $('#reservation').daterangepicker(null, function(start, end, label) {
+            console.log(start.toISOString(), end.toISOString(), label);
+        });
+
+        $('#reservation-time').daterangepicker({
+            timePicker: true,
+            timePickerIncrement: 30,
+            locale: {
+                format: 'MM/DD/YYYY h:mm A'
+            }
+        });
+    });
+
+    $('#list_1 a').on('click', function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+    })
+
+    $('#list_2 a').on('click', function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+    })
+
+    $('#enable_edit').on('click', function(e){
+        e.preventDefault();
+        $('#org_name').removeAttr("disabled");
+        $('#org_addr').removeAttr("disabled");
+        $('#org_person').removeAttr("disabled");
+        $('#org_num').removeAttr("disabled");
+        $('#org_pass').removeAttr("disabled");
+    })
+</script>
+
+
+<script>
+    $(document).ready(function() {
+        $('#single_cal1').daterangepicker({
+            singleDatePicker: true,
+            singleClasses: "picker_1"
+        }, function(start, end, label) {
+            console.log(start.toISOString(), end.toISOString(), label);
+        });
+        $('#single_cal2').daterangepicker({
+            singleDatePicker: true,
+            singleClasses: "picker_2"
+        }, function(start, end, label) {
+            console.log(start.toISOString(), end.toISOString(), label);
+        });
+    });
+</script>
+
+</body>
+</html>

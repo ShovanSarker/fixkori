@@ -1,0 +1,84 @@
+{% extends "admin_vendor/base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <!-- Card stats -->
+      <div class="row">
+        <h1>Detail of {{Vendor Name}}</h1><br>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <div class="row mt-5">
+    <div class="col-xl-12">
+      <div class="col-xl-8 offset-xl-2 order-xl-2 mb-5 mb-xl-0">
+        <div class="card card-profile shadow">
+          <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+          </div>
+          <div class="card-body pt-0 pt-md-4">
+            <div class="text-left">
+              <h3>
+                Vendor Name
+              </h3>
+              <div class="h5 font-weight-300">
+                01/12/2018 (Date Created)
+              </div>
+              <div class="h4 mt-4">
+                Username - <span class="font-weight-light">User Name</span>
+              </div>
+              <div class="h4 mt-4">
+                Full Name - <span class="font-weight-light">Full name</span>
+              </div>
+              <div class="h4 mt-4">
+                Email Address - <span class="font-weight-light">some@thing.com</span>
+              </div>
+              <div class="h4 mt-4">
+                Phone Number - <span class="font-weight-light">#0179721545451</span>
+              </div>
+              <div class="h4 mt-4">
+                Service Point - <span class="font-weight-light">Shope Name</span>
+              </div>
+              <hr class="my-4" />
+              <div class="h4 mt-4">
+                Service Type - <span class="font-weight-light">Service Type</span>
+              </div>
+              <div class="h4 mt-4">
+                Area Coverage - <span class="font-weight-light">Area1, Area2</span>
+              </div>
+              <hr class="my-4" />
+              <h3>About</h3>
+              <p>About Shop.</p>
+              <h3>About Service</h3>
+              <p>About Shop Service they provide.</p>
+              <hr class="my-4" />
+              <div class="h4 mt-4">
+                Facebook URL - <span class="font-weight-light">http://www.fb.com/sdfsdf</span>
+              </div>
+              <div class="h4 mt-4">
+                Google Map URL - <span class="font-weight-light">http://www.google.com/map</span>
+              </div>
+            </div>
+            <hr class="my-4" />
+            <a href="{% url 'list_vendor' %}">Back To the list</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="row align-items-center justify-content-xl-between">
+      <div class="col-xl-12">
+        <div class="copyright text-center text-xl-right text-muted">
+          &copy; 2019 <a href="#" class="font-weight-bold ml-1" target="_blank">Fix Kori</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+{% endblock %}

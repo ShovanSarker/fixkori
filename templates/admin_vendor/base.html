@@ -1,228 +1,181 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
+<html>
+{% load static %}
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    {% load static %}
-
-    <title>fixkori | {{ page_title }}</title>
-
-    <!-- Bootstrap -->
-    <link href="{% static 'admin_vendor/css/bootstrap.min.css' %}" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="{% static 'admin_vendor/css/font-awesome.min.css' %}" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="{% static 'admin_vendor/css/nprogress.css' %}" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="{% static 'admin_vendor/css/green.css' %}" rel="stylesheet">
-    <!-- bootstrap-progressbar -->
-    <link href="{% static 'admin_vendor/css/bootstrap-progressbar-3.3.4.min.css' %}" rel="stylesheet">
-    <!-- JQVMap -->
-    <link href="{% static 'admin_vendor/css/jqvmap.min.css' %}" rel="stylesheet"/>
-    <!-- bootstrap-daterangepicker -->
-    <link href="{% static 'admin_vendor/css/daterangepicker.css' %}" rel="stylesheet">
-
-    <!-- Custom Theme Style -->
-    <link href="{% static 'admin_vendor/css/custom.min.css' %}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
+    <meta name="author" content="Creative Tim">
+    <title>FixKori | Admin Dashboard</title>
+    <!-- Favicon -->
+    <!-- <link href="./assets/img/brand/favicon.png" rel="icon" type="image/png"> -->
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <!-- Icons -->
+    <link href="{% static 'assets/vendor/nucleo/css/nucleo.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/@fortawesome/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
+    <!-- Argon CSS -->
+    <link type="text/css" href="{% static 'assets/css/argon.css' %}" rel="stylesheet">
 </head>
 
-<body class="nav-md">
-<div class="container body">
-    <div class="main_container">
-        <div class="col-md-3 left_col">
-            <div class="left_col scroll-view">
-                <div class="navbar nav_title" style="border: 0;">
-                    <a href="{% url 'add_admin' %}" class="site_title"><i style="color:#02ff00;border:1px solid #02ff00;" class="fa fa-check"></i> <span>FixKori</span></a>
+<body>
+<!-- Sidenav -->
+<nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
+    <div class="container-fluid">
+        <!-- Toggler -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Brand -->
+        <a class="navbar-brand pt-0" href="{% url 'admin_index' %}">
+            FIX KORI
+        </a>
+        <!-- User -->
+        <ul class="nav align-items-center d-md-none">
+            <li class="nav-item dropdown">
+                <a class="nav-link nav-link-icon" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="ni ni-bell-55"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right" aria-labelledby="navbar-default_dropdown_1">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Something else here</a>
                 </div>
-
-                <div class="clearfix"></div>
-
-                <br />
-
-                <!-- sidebar menu -->
-                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                    <div class="menu_section">
-                        {% if admin %}
-                        <h3>Admin</h3>
-                        <ul class="nav side-menu">
-                            <li><a href="{% url 'add_admin' %}"><i class="fa fa-check"></i> Add New Admin </a></li>
-                            <li><a href="{% url 'add_vendor' %}"><i class="fa fa-check"></i> Add New Service Provider </a></li>
-                            <li><a href="{% url 'add_user' %}"><i class="fa fa-check"></i> Add New User </a></li>
-                        </ul>
-                        {% endif %}
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    User
+                </a>
+                <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
+                    <div class="dropdown-divider"></div>
+                    <a href="{% url 'login' %}" class="dropdown-item">
+                        <i class="ni ni-user-run"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </li>
+        </ul>
+        <!-- Collapse -->
+        <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+            <!-- Collapse header -->
+            <div class="navbar-collapse-header d-md-none">
+                <div class="row">
+                    <div class="col-6 collapse-brand">
+                        <a href="{% url 'admin_index' %}">
+                            FIX KORI
+                        </a>
                     </div>
-
-                </div>
-                <!-- /sidebar menu -->
-
-                <!-- /menu footer buttons -->
-                <div class="sidebar-footer hidden-small" style="width: 100%;padding-top: 0;">
-                    <div style="text-align: center; color: white;padding-bottom: 7px;">
-                        all rights received fixkori.co
+                    <div class="col-6 collapse-close">
+                        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle sidenav">
+                            <span></span>
+                            <span></span>
+                        </button>
                     </div>
                 </div>
-                <!-- /menu footer buttons -->
             </div>
+            <!-- Navigation -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'admin_index' %}">
+                        <i class="ni ni-tv-2 text-primary active"></i> Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'add_admin' %}">
+                        <i class="ni ni-fat-add text-yellow"></i> Add Admin
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'add_user' %}">
+                        <i class="ni ni-fat-add text-orange"></i> Add User
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'add_vendor' %}">
+                        <i class="ni ni-fat-add text-blue"></i> Add Vendor
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'add_item' %}">
+                        <i class="ni ni-fat-add text-red"></i> Add Item
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'add_area' %}">
+                        <i class="ni ni-fat-add text-green"></i> Add Area
+                    </a>
+                </li>
+            </ul>
+            <hr class="my-3">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'list_vendor' %}">
+                        <i class="ni ni-bullet-list-67 text-yellow"></i> Vendor List
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'list_user' %}">
+                        <i class="ni ni-bullet-list-67 text-red"></i> User List
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'list_order' %}">
+                        <i class="ni ni-bullet-list-67 text-blue"></i> Order List
+                    </a>
+                </li>
+            </ul>
+            <hr class="my-3">
+            <ul class="navbar-nav mb-md-3">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'order_manage' %}">
+                        <i class="ni ni-ui-04 text-blue"></i> Order Management
+                    </a>
+                </li>
+            </ul>
         </div>
-
-        <!-- top navigation -->
-        <div class="top_nav">
-            <div class="nav_menu">
-                <nav>
-                    <div class="nav toggle">
-                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                    </div>
-
-                    <ul class="nav navbar-nav navbar-right">
-
-                        <li class="">
-                            <a href="" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                {{ user.user_name }}
-                                <span class=" fa fa-angle-down"></span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                <li><a href="{% url 'add_admin' %}"><i class="fa fa-key pull-right"></i> Change Password</a></li>
-                                <li><a href="{% url 'logout' %}"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
-                            </ul>
-                        </li>
-                        {% if alert %}
-                            <li class="pull-left">
-                                <div class="alert alert-danger alert-dismissible" role="alert" style="margin-bottom: 0; margin-top: 2px;">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <strong>Warning!</strong> {{ message }}
-                                </div>
-                            </li>
-                        {% endif %}
-                        {% if success %}
-                            <li class="pull-left">
-                                <div class="alert alert-success alert-dismissible" role="alert" style="margin-bottom: 0; margin-top: 2px;">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <strong>{{ message }}</strong>
-                                </div>
-                            </li>
-                        {% endif %}
-                    </ul>
-                </nav>
-            </div>
-        </div>
-        <!-- /top navigation -->
-
-        <!-- page content -->
-        <div class="right_col" role="main">
-            {% block content %}
-            {% endblock %}
-
-
-        </div>
-        <!-- /page content -->
-
     </div>
+</nav>
+<!-- Main content -->
+<div class="main-content">
+    <!-- Top navbar -->
+    <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
+        <div class="container-fluid">
+            <!-- Brand -->
+            <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="{% url 'admin_index' %}">Dashboard</a>
+            <!-- User -->
+            <ul class="navbar-nav align-items-center d-none d-md-flex">
+                <li class="nav-item dropdown">
+                    <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div class="media align-items-center">
+                            <div class="media-body ml-2 d-none d-lg-block">
+                                <span class="mb-0 text-sm  font-weight-bold">User</span>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
+                        <a href="#!" class="dropdown-item">
+                            <i class="ni ni-user-run"></i>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    {% block content %}
+    {% endblock %}
+
 </div>
-
-<!-- jQuery -->
-<script src="{% static 'admin_vendor/js/jquery.min.js' %}"></script>
-<!-- Bootstrap -->
-<script src="{% static 'admin_vendor/js/bootstrap.min.js' %}"></script>
-<!-- FastClick -->
-<script src="{% static 'admin_vendor/js/fastclick.js' %}"></script>
-<!-- NProgress -->
-<script src="{% static 'admin_vendor/js/nprogress.js' %}"></script>
-<!-- Chart.js -->
-<script src="{% static 'admin_vendor/js/Chart.min.js' %}"></script>
-<!-- gauge.js -->
-<script src="{% static 'admin_vendor/js/gauge.min.js' %}"></script>
-<!-- bootstrap-progressbar -->
-<script src="{% static 'admin_vendor/js/bootstrap-progressbar.min.js' %}"></script>
-<!-- iCheck -->
-<script src="{% static 'admin_vendor/js/icheck.min.js' %}"></script>
-<!-- Skycons -->
-<script src="{% static 'admin_vendor/js/skycons.js' %}"></script>
-<!-- Flot -->
-<script src="{% static 'admin_vendor/js/jquery.flot.js' %}"></script>
-<script src="{% static 'admin_vendor/js/jquery.flot.pie.js' %}"></script>
-<script src="{% static 'admin_vendor/js/jquery.flot.time.js' %}"></script>
-<script src="{% static 'admin_vendor/js/jquery.flot.stack.js' %}"></script>
-<script src="{% static 'admin_vendor/js/jquery.flot.resize.js' %}"></script>
-<!-- Flot plugins -->
-<script src="{% static 'admin_vendor/js/jquery.flot.orderBars.js' %}"></script>
-<script src="{% static 'admin_vendor/js/jquery.flot.spline.min.js' %}"></script>
-<script src="{% static 'admin_vendor/js/curvedLines.js' %}"></script>
-<!-- DateJS -->
-<script src="{% static 'admin_vendor/js/date.js' %}"></script>
-<!-- JQVMap -->
-<script src="{% static 'admin_vendor/js/jquery.vmap.js' %}"></script>
-<script src="{% static 'admin_vendor/js/jquery.vmap.world.js' %}"></script>
-<script src="{% static 'admin_vendor/js/jquery.vmap.sampledata.js' %}"></script>
-<!-- bootstrap-daterangepicker -->
-<script src="{% static 'admin_vendor/js/moment.min.js' %}"></script>
-<script src="{% static 'admin_vendor/js/daterangepicker.js' %}"></script>
-
-<script src="{% static 'admin_vendor/js/canvasjs.min.js' %}"></script>
-
-<!-- Custom Theme Scripts -->
-<script src="{% static 'admin_vendor/js/custom.min.js' %}"></script>
-
-
-
-<!-- /gauge.js -->
-
-
-<script>
-    $(document).ready(function() {
-        $('#reservation').daterangepicker(null, function(start, end, label) {
-            console.log(start.toISOString(), end.toISOString(), label);
-        });
-
-        $('#reservation-time').daterangepicker({
-            timePicker: true,
-            timePickerIncrement: 30,
-            locale: {
-                format: 'MM/DD/YYYY h:mm A'
-            }
-        });
-    });
-
-    $('#list_1 a').on('click', function (e) {
-        e.preventDefault()
-        $(this).tab('show')
-    })
-
-    $('#list_2 a').on('click', function (e) {
-        e.preventDefault()
-        $(this).tab('show')
-    })
-
-    $('#enable_edit').on('click', function(e){
-        e.preventDefault();
-        $('#org_name').removeAttr("disabled");
-        $('#org_addr').removeAttr("disabled");
-        $('#org_person').removeAttr("disabled");
-        $('#org_num').removeAttr("disabled");
-        $('#org_pass').removeAttr("disabled");
-    })
-</script>
-
-
-<script>
-    $(document).ready(function() {
-        $('#single_cal1').daterangepicker({
-            singleDatePicker: true,
-            singleClasses: "picker_1"
-        }, function(start, end, label) {
-            console.log(start.toISOString(), end.toISOString(), label);
-        });
-        $('#single_cal2').daterangepicker({
-            singleDatePicker: true,
-            singleClasses: "picker_2"
-        }, function(start, end, label) {
-            console.log(start.toISOString(), end.toISOString(), label);
-        });
-    });
-</script>
-
+<!-- Argon Scripts -->
+<!-- Core -->
+<script src="{% static 'assets/vendor/jquery/dist/jquery.min.js' %}"></script>
+<script src="{% static 'assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+<!-- Optional JS -->
+<script src="{% static 'assets/vendor/chart.js/dist/Chart.min.js' %}"></script>
+<script src="{% static 'assets/vendor/chart.js/dist/Chart.extension.js' %}"></script>
+<!-- Argon JS -->
+<script src="{% static 'assets/js/argon.js' %}"></script>
 </body>
+
 </html>

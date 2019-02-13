@@ -1,0 +1,78 @@
+Remaining Pages for FixKori
+###########################
+
+
+01. Vendor's Webpage in main app:
+a. 5 images scroller
+b. About
+c. Service List
+d. Contact
+e. FB URL
+f. Address in Google Map (embedded map URL)
+
+02. User's service/order list in main app
+a. List of service taken/order placed
+        * Rating Provided
+        * Status
+        * Sorted in service order
+
+03. User's Service/Order details
+a. Order Details
+b. Status
+
+
+*************************VENDOR************************
+
+04. Vendor's Dashboard
+a. Vendor's rating
+b. Number of service provided
+c. New orders
+
+05. Vendor's Service List
+a. List of Service provided
+
+06. Vendor's Service Details
+a. Order Details
+
+07. Vendor's New order
+a. Order Details
+
+08. Vendor's New order
+a. Vendor will take order on the fly
+
+09. Vendor's Page Manage
+a. Update Photos
+b. Update Description
+c. Update Service List
+d. Update contact
+e. Update FB URL
+
+
+****************ADMIN***********************
+
+10. Admin Dashboard
+a. Number of orders
+b. Number of services Provided
+c. Number of vendors
+
+11. Order list
+
+12. Order details
+
+13. Vendor List
+
+14. Vendor Details
+
+15. New Vendor Add
+
+16. New Order Add (For Phone and Messenger order)
+
+17. User List
+
+18. User Details
+
+19. New User Add
+
+20. New service device add
+
+21. Order manage(Assign and distribute)

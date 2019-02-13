@@ -1,115 +1,223 @@
 {% extends "admin_vendor/base.html" %}
 {% load static %}
 {% block content %}
-<!-- top tiles -->
-<div class="row tile_count">
-    <div class="col-md-11">
-        <div>
-            <h3>Add Service Provider</h3>
-        </div>
-        <form class="" role="form" action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
-            <div class="col-md-5">
-                <div class="form-group">
-                    <label for="user_name">Username</label>
-                    <input type="text" class="form-control" id="user_name" name="user_name" placeholder="Username" required>
-                </div>
-                <div class="form-group">
-                    <label for="first_name">First Name</label>
-                    <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name" required>
-                </div>
-                <div class="form-group">
-                    <label for="last_name">Last Name</label>
-                    <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name" required>
-                </div>
-                <div class="form-group">
-                    <label for="phone_number">Phone Number</label>
-                    <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="Phone Number" required>
-                </div>
-                <div class="form-group">
-                    <label for="user_email">Email Address</label>
-                    <input type="email" class="form-control" id="user_email" name="email" placeholder="Email Address" required>
-                </div>
 
-                <div class="form-group">
-                    <label for="address">Address</label>
-                    <input type="text" class="form-control" id="address" name="address" placeholder="Address" required>
-                </div>
-                <div class="form-group">
-                    <label for="service_point_name">Service Point Name</label>
-                    <input type="text" class="form-control" id="service_point_name" name="service_point_name" placeholder="Service Point Name" required>
-                </div>
-                <div class="form-group">
-                    <label for="image_1">Photo 1</label>
-                    <input type="file" class="form-control" id="image_1" name="image_1" required>
-                </div>
-                <div class="form-group">
-                    <label for="image_2">Photo 2</label>
-                    <input type="file" class="form-control" id="image_2" name="image_2" required>
-                </div>
-                <div class="form-group">
-                    <label for="image_3">Photo 3</label>
-                    <input type="file" class="form-control" id="image_3" name="image_3" required>
-                </div>
-                <div class="form-group">
-                    <label for="image_4">Photo 4</label>
-                    <input type="file" class="form-control" id="image_4" name="image_4" required>
-                </div>
-                <div class="form-group">
-                    <label for="image_5">Photo 5</label>
-                    <input type="file" class="form-control" id="image_5" name="image_5" required>
-                </div>
-                <div class="form-group">
-                    <label for="about">About</label>
-                    <textarea id="about" name="about" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="services">Services</label>
-                    <textarea id="services" name="services" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="facebook_url">FB URL</label>
-                    <input type="text" class="form-control" id="facebook_url" name="facebook_url" placeholder="Facebook Page URL" required>
-                </div>
-                <div class="form-group">
-                    <label for="google_map_url">Map URL</label>
-                    <input type="text" class="form-control" id="google_map_url" name="google_map_url" placeholder="Google Map URL" required>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label>Service Type</label><br>
-                    {% for item in all_items %}
-                    <input type="checkbox" name="item" value="{{ item.id }}"> {{ item.item_name }}<br>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label>Area</label><br>
-                    {% for area in all_areas %}
-                    <input type="checkbox" name="area" value="{{ area.id }}"> {{ area.area_name }}<br>
-                    {% endfor %}
-                </div>
-                <button type="submit" class="btn btn-primary block full-width m-b">Submit</button>
-                <input type="hidden" name="submit" value="Submit" />
-            </div>
-        </form>
+<div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <!-- Card stats -->
+      <div class="row">
+        <h1>Add Vendor</h1><br>
+      </div>
     </div>
+  </div>
 </div>
-<script>
-    var password = document.getElementById("password")
-  , confirm_password = document.getElementById("re_password");
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <form>
+    <div class="row">
 
-function validatePassword(){
-  if(password.value != confirm_password.value) {
-    confirm_password.setCustomValidity("Passwords Don't Match");
-  } else {
-    confirm_password.setCustomValidity('');
-  }
-}
+      <div class="col-xl-8 order-xl-1">
+        <div class="card bg-secondary shadow">
+          <div class="card-header bg-white border-0">
+            <div class="row align-items-center">
+              <div class="col-8">
+                <h3 class="mb-0">Vendor Addition</h3>
+              </div>
+              <div class="col-4 text-right">
+                <a href="#!" class="btn btn-sm btn-primary">Reset</a>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <h6 class="heading-small text-muted mb-4">Vendor information</h6>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label class="form-control-label" for="username">Username</label>
+                    <input type="text" id="username" class="form-control form-control-alternative" placeholder="Username" value="">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="first_name">First name</label>
+                    <input type="text" id="first_name" class="form-control form-control-alternative" placeholder="First name" value="">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="last_name">Last name</label>
+                    <input type="text" id="last_name" class="form-control form-control-alternative" placeholder="Last name" value="">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="phone">Phone Number</label>
+                    <input type="text" id="phone" class="form-control form-control-alternative" placeholder="Phone Number" value="">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="email">Email Address</label>
+                    <input type="email" id="email" class="form-control form-control-alternative" placeholder="Email Address" value="">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr class="my-4" />
+            <!-- Password -->
+            <h6 class="heading-small text-muted mb-4">Address Information</h6>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="address">Address</label>
+                    <input id="address" class="form-control form-control-alternative" placeholder="Address" value="" type="text">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="service_point">Service Point</label>
+                    <input id="service_point" class="form-control form-control-alternative" placeholder="Service Point" value="" type="text">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr class="my-4" />
+            <!-- Password -->
+            <h6 class="heading-small text-muted mb-4">Upload Photos</h6>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="form-control-label" for="photo1">Photo 1</label>
+                    <input id="photo1" type="file" name="pic" accept="image/*">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="form-control-label" for="photo2">Photo 2</label>
+                    <input id="photo2" type="file" name="pic" accept="image/*">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="form-control-label" for="photo3">Photo 3</label>
+                    <input id="photo3" type="file" name="pic" accept="image/*">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="form-control-label" for="photo4">Photo 4</label>
+                    <input id="photo4" type="file" name="pic" accept="image/*">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="form-control-label" for="photo5">Photo 5</label>
+                    <input id="photo5" type="file" name="pic" accept="image/*">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr class="my-4" />
+            <!-- Password -->
+            <h6 class="heading-small text-muted mb-4">Description</h6>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="about">About</label>
+                    <textarea id="about" rows="4" class="form-control form-control-alternative" placeholder="A few words about you ..."></textarea>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="about_service">About Services</label>
+                    <textarea id="about_service" rows="4" class="form-control form-control-alternative" placeholder="A few words about your Services"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr class="my-4" />
+            <!-- Password -->
+            <h6 class="heading-small text-muted mb-4">Online Url</h6>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="fb_url">Facebook URL</label>
+                    <input type="text" id="fb_url" class="form-control form-control-alternative" placeholder="Face Book Url" value="">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="google_map_url">Google Map URL</label>
+                    <input type="text" id="google_map_url" class="form-control form-control-alternative" placeholder="Google Map URL" value="">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-12 text-right">
+                  <a href="#!" class="btn btn-md btn-primary">Submit</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+        <div class="card bg-secondary shadow">
+          <div class="card-body">
+            <form>
+              <h6 class="heading-small text-muted mb-4">Service Type</h6>
+              <div class="pl-lg-4">
+                <div class="row">
+                  {% for item in all_items %}
+                  <div class="custom-control custom-checkbox col-3 mb-3">
+                    <input class="custom-control-input" name="item" id="{{ item.id }}" value="{{ item.id }}" type="checkbox">
+                    <label class="custom-control-label" for="{{ item.id }}">{{ item.item_name }}</label>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+              <hr class="my-4" />
+              <!-- Password -->
+              <h6 class="heading-small text-muted mb-4">Area Coverage</h6>
+              <div class="pl-lg-4">
+                <div class="row">
+                  {% for area in all_areas %}
+                  <div class="custom-control custom-checkbox col-3 mb-3">
+                    <input class="custom-control-input" name="item" id="{{ area.id }}" value="{{ area.id }}" type="checkbox">
+                    <label class="custom-control-label" for="{{ area.id }}">{{ area.area_name }}</label>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
 
-password.onchange = validatePassword;
-confirm_password.onkeyup = validatePassword;
-</script>
-<!-- /top tiles -->
+    </div>
+  </form>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="row align-items-center justify-content-xl-between">
+      <div class="col-xl-12">
+        <div class="copyright text-center text-xl-right text-muted">
+          &copy; 2019 <a href="#" class="font-weight-bold ml-1" target="_blank">Fix Kori</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+
 {% endblock %}
