@@ -241,6 +241,60 @@ class Manage(View):
         return render(request, 'admin_vendor/manage.html')
 
 
+class CustomerDashboard(View):
+    @staticmethod
+    def get(request):
+        return render(request, 'customer/dashboard.html')
+
+
+class CustomerServiceList(View):
+    @staticmethod
+    def get(request):
+        return render(request, 'customer/service_list.html')
+
+
+class CustomerServiceDetail(View):
+    @staticmethod
+    def get(request):
+        return render(request, 'customer/service_detail.html')
+
+
+class CustomerProfile(View):
+    @staticmethod
+    def get(request):
+        return render(request, 'customer/profile_settings.html')
+
+
+class OrderLogin(View):
+    @staticmethod
+    def get(request):
+        return render(request, 'order/login.html')
+
+
+class OrderSignUp(View):
+    @staticmethod
+    def get(request):
+        return render(request, 'order/signup.html')
+
+
+class Order(View):
+    @staticmethod
+    def get(request):
+        return render(request, 'order/index.html')
+
+
+class OrderElectronic(View):
+    @staticmethod
+    def get(request):
+        return render(request, 'order/electronic.html')
+
+
+class OrderVehicle(View):
+    @staticmethod
+    def get(request):
+        return render(request, 'order/vehicle.html')
+
+
 def add_to_user_list(user_name, phone_number, user_email, user_id, user_type):
     listed_user = UserList(user_name=user_name,
                            phone_number=phone_number,

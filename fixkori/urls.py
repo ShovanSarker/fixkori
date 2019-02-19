@@ -34,6 +34,17 @@ from dashboard.views import OrderManage
 from dashboard.views import Manage
 from dashboard.views import AddArea
 
+from dashboard.views import CustomerDashboard
+from dashboard.views import CustomerServiceList
+from dashboard.views import CustomerServiceDetail
+from dashboard.views import CustomerProfile
+
+from dashboard.views import OrderLogin
+from dashboard.views import OrderSignUp
+from dashboard.views import Order
+from dashboard.views import OrderElectronic
+from dashboard.views import OrderVehicle
+
 from dashboard.views import Login
 from dashboard.views import Logout
 from dashboard.views import Home
@@ -56,6 +67,15 @@ urlpatterns = [
     url(r'^detail_vendor/', view=DetailVendor.as_view(), name='detail_vendor'),
     url(r'^order_manage/', view=OrderManage.as_view(), name='order_manage'),
     url(r'^manage/', view=Manage.as_view(), name='manage'),
+    url(r'^user/', view=CustomerDashboard.as_view(), name='user'),
+    url(r'^service_list/', view=CustomerServiceList.as_view(), name='service_list'),
+    url(r'^service_detail/', view=CustomerServiceDetail.as_view(), name='service_detail'),
+    url(r'^profile/', view=CustomerProfile.as_view(), name='profile'),
+    url(r'^order_login/', view=OrderLogin.as_view(), name='order_login'),
+    url(r'^order_signup/', view=OrderSignUp.as_view(), name='order_signup'),
+    url(r'^order/', view=Order.as_view(), name='order'),
+    url(r'^electronic/', view=OrderElectronic.as_view(), name='electronic'),
+    url(r'^vehicle/', view=OrderVehicle.as_view(), name='vehicle'),
     url(r'^login/', view=Login.as_view(), name='login'),
     url(r'^logout/', view=Logout.as_view(), name='logout'),
     url(r'^$', view=Home.as_view(), name='home'),

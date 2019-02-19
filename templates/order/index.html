@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'order/select/css/styles.css' %}">
+    <title>Fix kori</title>
+</head>
+<body>
+    <div class="container">
+        <div class="split left">
+            <h1>Electronic</h1>
+            <a href="{% url 'electronic' %}" class="button">Fix it now</a>
+        </div>
+        <div class="split right">
+            <h1>Vehicle</h1>
+            <a href="{% url 'vehicle' %}" class="button">Fix it now</a>
+        </div>
+        <footer class="footer-content">
+            Copyright @ <a href="">Fixkori.com</a> 2019
+        </footer>
+    </div>
+    <script src="{% static 'order/select/js/srcipt.js' %}"></script>
+</body>
+</html>

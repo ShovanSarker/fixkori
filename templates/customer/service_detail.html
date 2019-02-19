@@ -1,10 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends "customer/base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <!-- Card stats -->
+      <div class="row">
+        <h1>Detail Order of</h1><br>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <div class="row mt-5">
+    <div class="col-xl-12">
+      <div class="col-xl-8 offset-xl-2 order-xl-2 mb-5 mb-xl-0">
+        <div class="card card-profile shadow">
+          <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+          </div>
+          <div class="card-body pt-0 pt-md-4">
+            <div class="text-left">
+              <h3>
+                Service Number<span class="font-weight-light"> 27</span>
+              </h3>
+              <div class="h5 font-weight-300">
+                <i class="ni location_pin mr-2"></i>01/12/2018
+              </div>
+              <div class="h4 mt-4">
+                Order Type - <span class="font-weight-light">Car Fixing</span>
+              </div>
+              <div class="h4 mt-4">
+                Order Issued By - <span class="font-weight-light">Some User</span>
+              </div>
+              <div class="h4 mt-4">
+                Order served By - <span class="font-weight-light">Some Shop</span>
+              </div>
+              <div class="h4 mt-4">
+                Order Rank Score - <span class="font-weight-light">5 Star</span>
+              </div>
+              <hr class="my-4" />
+              <h3>Order Issue</h3>
+              <p>A description of Issue.</p>
+            </div>
+            <hr class="my-4" />
+            <a href="{% url 'service_list' %}">Back To the list</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="row align-items-center justify-content-xl-between">
+      <div class="col-xl-12">
+        <div class="copyright text-center text-xl-right text-muted">
+          &copy; 2019 <a href="#" class="font-weight-bold ml-1" target="_blank">Fix Kori</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+{% endblock %}

@@ -1,9 +1,3 @@
-/*
-  Theme Name: Avilon
-  Theme URL: https://bootstrapmade.com/avilon-bootstrap-landing-page-template/
-  Author: BootstrapMade.com
-  License: https://bootstrapmade.com/license/
-*/
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
@@ -12,6 +6,10 @@ body {
   color: #666666;
   font-family: "Open Sans", sans-serif;
   overflow-x: hidden;
+}
+
+.nav-fix{
+  padding: 4px !important;
 }
 
 a {
