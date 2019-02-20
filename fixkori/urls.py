@@ -33,6 +33,7 @@ from dashboard.views import DetailVendor
 from dashboard.views import OrderManage
 from dashboard.views import Manage
 from dashboard.views import AddArea
+from dashboard.views import PlaceOrder
 
 from dashboard.views import CustomerDashboard
 from dashboard.views import CustomerServiceList
@@ -40,7 +41,7 @@ from dashboard.views import CustomerServiceDetail
 from dashboard.views import CustomerProfile
 
 from dashboard.views import OrderLogin
-from dashboard.views import Order
+from dashboard.views import NewOrder
 from dashboard.views import OrderElectronic
 from dashboard.views import OrderVehicle
 
@@ -63,6 +64,7 @@ urlpatterns = [
     url(r'^detail_vendor/(?P<vendor_id>[0-9]+)/', view=DetailVendor.as_view(), name='detail_vendor'),
     url(r'^detail_user/(?P<client_id>[0-9]+)/', view=DetailUser.as_view(), name='detail_user'),
 
+    url(r'^place_order/', view=PlaceOrder.as_view(), name='place_order'),
     url(r'^register/', view=Register.as_view(), name='register'),
     url(r'^change_password/', view=ChangePassword.as_view(), name='change_password'),
 
@@ -75,10 +77,10 @@ urlpatterns = [
     url(r'^manage/', view=Manage.as_view(), name='manage'),
     url(r'^user/', view=CustomerDashboard.as_view(), name='user'),
     url(r'^service_list/', view=CustomerServiceList.as_view(), name='service_list'),
-    url(r'^service_detail/', view=CustomerServiceDetail.as_view(), name='service_detail'),
+    url(r'^service_detail/(?P<order_id>[0-9]+)/', view=CustomerServiceDetail.as_view(), name='service_detail'),
     url(r'^profile/', view=CustomerProfile.as_view(), name='profile'),
     url(r'^order_login/', view=OrderLogin.as_view(), name='order_login'),
-    url(r'^order/', view=Order.as_view(), name='order'),
+    url(r'^order/', view=NewOrder.as_view(), name='order'),
     url(r'^electronic/', view=OrderElectronic.as_view(), name='electronic'),
     url(r'^vehicle/', view=OrderVehicle.as_view(), name='vehicle'),
     url(r'^login/', view=Login.as_view(), name='login'),

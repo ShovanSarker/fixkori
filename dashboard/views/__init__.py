@@ -13,6 +13,7 @@ from dashboard.views.user_access import DetailOrder
 from dashboard.views.user_access import DetailUser
 from dashboard.views.user_access import DetailVendor
 from dashboard.views.user_access import OrderManage
+from dashboard.views.home import PlaceOrder
 from dashboard.views.user_access import Manage
 from dashboard.views.user_access import CustomerDashboard
 from dashboard.views.user_access import CustomerServiceList
@@ -21,7 +22,7 @@ from dashboard.views.user_access import CustomerProfile
 
 from dashboard.views.user_access import OrderLogin
 from dashboard.views.user_access import Register
-from dashboard.views.user_access import Order
+from dashboard.views.user_access import NewOrder
 from dashboard.views.user_access import OrderElectronic
 from dashboard.views.user_access import OrderVehicle
 from dashboard.views.user_access import ChangePassword
