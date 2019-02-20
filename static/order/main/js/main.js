@@ -14,7 +14,7 @@
         titleTemplate: '<h3 class="title">#title#</h3>',
         onFinished: function(event, currentIndex) {
             alert('Thanks your Order Has been Submitted!');
-            window.location = '/'
+//            window.location = '/'
         },
     });
 

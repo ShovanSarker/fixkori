@@ -477,10 +477,20 @@ class OrderElectronic(View):
     def get(request):
         return render(request, 'order/electronic.html')
 
+    @staticmethod
+    def post(request):
+        print(request.POST)
+        return render(request, 'order/electronic.html')
+
 
 class OrderVehicle(View):
     @staticmethod
     def get(request):
+        return render(request, 'order/vehicle.html')
+
+    @staticmethod
+    def post(request):
+        print(request.POST)
         return render(request, 'order/vehicle.html')
 
 

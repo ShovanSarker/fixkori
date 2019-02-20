@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{% static 'order/main/fonts/material-icon/css/material-design-iconic-font.min.css' %}">
 
     <!-- Main css -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'order/main/css/style.css' %}">
 </head>
 
@@ -38,48 +39,54 @@
 
             <!-- Type * area*issue*date&time*service provider -->
             <div class="signup-form-conent">
-                <form method="POST" id="signup-form" class="signup-form" enctype="multipart/form-data">
-                    <h3></h3>
-                    <fieldset>
-                        <span class="step-current">Step 1 / 4</span>
-                        <div class="form-group">
-                            <input list="browsers" placeholder="Your Zone">
-                            <datalist id="browsers">
-                                <option value="Mirpur">
-                                <option value="Uttara">
-                                <option value="Shantinagar">
-                                <option value="Dhanmondi">
-                                <option value="Banani">
-                            </datalist>
-                        </div>
-                    </fieldset>
+                <form method="POST" id="signup-form" class="signup-form" action="">{% csrf_token %}
+                    <div class="form-group">
+                        <input list="zone" name="zone" placeholder="Your Zone">
+                        <datalist id="zone">
+                            <option value="Mirpur">
+                            <option value="Uttara">
+                            <option value="Shantinagar">
+                            <option value="Dhanmondi">
+                            <option value="Banani">
+                        </datalist>
+                    </div>
 
-                    <h3></h3>
-                    <fieldset>
-                        <span class="step-current">Step 2 / 4</span>
-                        <div class="form-group">
-                            <input type="text" name="issue" id="issue" required/>
-                            <label for="issue">Issue</label>
-                        </div>
-                    </fieldset>
+                    <div class="form-group">
+                        <!--<label for="issue">Issue</label>-->
+                        <input type="text" name="issue" id="issue" placeholder="Issue">
+                    </div>
 
-                    <h3></h3>
-                    <fieldset>
-                        <span class="step-current">Step 3 / 4</span>
-                        <div class="form-group">
-                            <input type="datetime" name="time" id="time" required/>
-                            <label for="time">Date&Time</label>
-                        </div>
-                    </fieldset>
+                    <div class="form-group">
+                        <!--<label for="brand">Car Brand</label>-->
+                        <input type="text" name="brand" id="brand" placeholder="Car Brand">
+                    </div>
 
-                    <h3></h3>
-                    <fieldset>
-                        <span class="step-current">Step 4 / 4</span>
-                        <div class="form-group">
-                            <input type="text" name="confirm_service" id="confirm_service" required/>
-                            <label for="confirm_service">Confirm your Service Provider</label>
-                        </div>
-                    </fieldset>
+                    <div class="form-group">
+                        <!--<label for="model">Car Name or Series</label>-->
+                        <input type="text" name="model" id="model" placeholder="Car Model">
+                    </div>
+
+                    <div class="form-group">
+                        <input list="type" name="type" placeholder="Car Type">
+                        <datalist id="type">
+                            <option value="Sedan">
+                            <option value="SUV">
+                            <option value="TRUCK">
+                        </datalist>
+                    </div>
+
+                    <div class="form-group">
+                        <!--<label for="model">Car Name or Series</label>-->
+                        <input type="hidden" name="item" id="item" value="vehicle">
+                    </div>
+
+                    <div class="form-group">
+                        <!--<label for="issue">Issue</label>-->
+                        <input type="text" name="instruction" id="instruction" placeholder="Instruction">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a href="{% url 'order' %}" class="btn btn-warning">Back</a>
                 </form>
             </div>
         </div>
@@ -88,11 +95,14 @@
 </div>
 
 <!-- JS -->
-<script src="{% static 'order/main/vendor/jquery/jquery.min.js' %}"></script>
+<!--<script src="{% static 'order/main/vendor/jquery/jquery.min.js' %}"></script>-->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="{% static 'order/main/vendor/jquery-validation/dist/jquery.validate.min.js' %}"></script>
 <script src="{% static 'order/main/vendor/jquery-validation/dist/additional-methods.min.js' %}"></script>
 <script src="{% static 'order/main/vendor/jquery-steps/jquery.steps.min.js' %}"></script>
-<script src="{% static 'order/main/js/main.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<!--<script src="{% static 'order/main/js/main.js' %}"></script>-->
 </body>
 
 </html>

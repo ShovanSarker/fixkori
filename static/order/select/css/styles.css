@@ -45,13 +45,41 @@
     text-decoration: none;
     transform: translateX(-50%);
   }
+
+  .button_back {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 2.5rem;
+    padding-top: 1.3rem;
+    width: 15rem;
+    text-align: center;
+    color: #fff;
+    border: #fff solid 0.2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    transform: translateX(-50%);
+  }
   
   .split.left .button:hover {
     background-color: var(--left-button-hover-color);
     border-color: var(--left-button-hover-color);
   }
+
+  .split.left .button_back:hover {
+    background-color: var(--left-button-hover-color);
+    border-color: var(--left-button-hover-color);
+  }
   
   .split.right .button:hover {
+    background-color: var(--right-button-hover-color);
+    border-color: var(--right-button-hover-color);
+  }
+
+  .split.right .button_back:hover {
     background-color: var(--right-button-hover-color);
     border-color: var(--right-button-hover-color);
   }

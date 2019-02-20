@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="fixkori.com">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fix kori</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="{% static 'order/main/fonts/material-icon/css/material-design-iconic-font.min.css' %}">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="{% static 'order/main/css/style.css' %}">
+</head>
+
+<body>
+
+<div class="main">
+
+    <div class="container">
+        <div class="signup-content">
+            <div class="signup-desc">
+                <div class="signup-desc-content">
+                    <h2><span>Fix</span> Kori</h2>
+                    <p class="title">Service Booking section</p>
+                    <p class="desc">
+                        You have Selected our <span class="spanColor">Electronic</span> fixing service.<br>
+                        Please fill up the following form to make your service booking complete
+                    </p>
+                    <img src="{% static 'order/main/images/computer.jpg' %}" style="width: 378px;" alt="" class="signup-img">
+                </div>
+                <footer class="footer-content">
+                    Copyright @ <a href="">Fixkori.com</a> 2019
+                </footer>
+            </div>
+
+            <!-- Type * area*issue*date&time*service provider -->
+            <div class="signup-form-conent">
+                <form method="POST" id="signup-form" class="signup-form" action="">{% csrf_token %}
+                    <h3></h3>
+                    <fieldset>
+                        <span class="step-current">Step 1 / 4</span>
+                        <div class="form-group">
+                            <input list="browsers" placeholder="Your Zone">
+                            <datalist id="browsers">
+                                <option value="Mirpur">
+                                <option value="Uttara">
+                                <option value="Shantinagar">
+                                <option value="Dhanmondi">
+                                <option value="Banani">
+                            </datalist>
+                        </div>
+                    </fieldset>
+
+                    <h3></h3>
+                    <fieldset>
+                        <span class="step-current">Step 2 / 4</span>
+                        <div class="form-group">
+                            <input type="text" name="issue" id="issue" required/>
+                            <label for="issue">Issue</label>
+                        </div>
+                    </fieldset>
+
+                    <h3></h3>
+                    <fieldset>
+                        <span class="step-current">Step 3 / 4</span>
+                        <div class="form-group">
+                            <input type="text" name="time" id="time" required/>
+                            <label for="time">Date&Time</label>
+                        </div>
+                    </fieldset>
+
+                    <h3></h3>
+                    <fieldset>
+                        <span class="step-current">Step 4 / 4</span>
+                        <div class="form-group">
+                            <input type="text" name="confirm_service" id="confirm_service" required/>
+                            <label for="confirm_service">Confirm your Service Provider</label>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- JS -->
+<script src="{% static 'order/main/vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'order/main/vendor/jquery-validation/dist/jquery.validate.min.js' %}"></script>
+<script src="{% static 'order/main/vendor/jquery-validation/dist/additional-methods.min.js' %}"></script>
+<script src="{% static 'order/main/vendor/jquery-steps/jquery.steps.min.js' %}"></script>
+<script src="{% static 'order/main/js/main.js' %}"></script>
+</body>
+
+</html>
