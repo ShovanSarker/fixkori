@@ -428,13 +428,44 @@ class CustomerDashboard(View):
 class CustomerServiceList(View):
     @staticmethod
     def get(request):
-        return render(request, 'customer/service_list.html')
+        if 'token' not in request.session:
+            return redirect(reverse('home'))
+        logged_in_user = Session.get_user_by_session(request.session['token'])
+        if logged_in_user is None:
+            return redirect(reverse('home'))
+
+        if logged_in_user.user_type == constants.USER_TYPE_CLIENT:
+            '''client'''
+            logged_in_user_object = UserClient.objects.get(user=logged_in_user)
+            all_orders = Order.objects.filter(customer=logged_in_user_object)
+            return render(request, 'customer/service_list.html', {'admin': True,
+                                                                  'all_orders': all_orders,
+                                                                  'logged_in_user_object': logged_in_user_object})
+        return redirect(reverse('home'))
 
 
 class CustomerServiceDetail(View):
     @staticmethod
-    def get(request):
-        return render(request, 'customer/service_detail.html')
+    def get(request, order_id):
+        print(order_id)
+        if 'token' not in request.session:
+            return redirect(reverse('home'))
+        logged_in_user = Session.get_user_by_session(request.session['token'])
+        if logged_in_user is None:
+            return redirect(reverse('home'))
+
+        if logged_in_user.user_type == constants.USER_TYPE_CLIENT:
+            '''client'''
+            logged_in_user_object = UserClient.objects.get(user=logged_in_user)
+            selected_order = Order.objects.get(pk=order_id)
+            if selected_order.customer == logged_in_user_object:
+
+                return render(request, 'customer/service_detail.html', {'admin': True,
+                                                                    'selected_order': selected_order,
+                                                                    'logged_in_user_object': logged_in_user_object})
+            else:
+                return redirect(reverse('service_list'))
+        return redirect(reverse('home'))
 
 
 class CustomerProfile(View):
@@ -455,7 +486,7 @@ class OrderSignUp(View):
         return render(request, 'order/signup.html')
 
 
-class Order(View):
+class NewOrder(View):
     @staticmethod
     def get(request):
         if 'token' not in request.session:
@@ -469,13 +500,29 @@ class Order(View):
             logged_in_user_object = UserClient.objects.get(user=logged_in_user)
             return render(request, 'order/index.html', {'admin': True,
                                                         'logged_in_user_object': logged_in_user_object})
-        return render(request, 'order/index.html')
+        return redirect(reverse('home'))
 
 
 class OrderElectronic(View):
     @staticmethod
     def get(request):
-        return render(request, 'order/electronic.html')
+        if 'token' not in request.session:
+            return redirect(reverse('home'))
+        logged_in_user = Session.get_user_by_session(request.session['token'])
+        if logged_in_user is None:
+            return redirect(reverse('home'))
+
+        if logged_in_user.user_type == constants.USER_TYPE_CLIENT:
+            '''client'''
+            logged_in_user_object = UserClient.objects.get(user=logged_in_user)
+            electric_items = Item.objects.filter(service_type=constants.SERVICE_TYPE_ELECTRONIC)
+            areas = Area.objects.all()
+            return render(request, 'order/electronic.html', {'admin': True,
+                                                             'electric_items': electric_items,
+                                                             'areas': areas,
+                                                             'logged_in_user_object': logged_in_user_object})
+        return redirect(reverse('home'))
+
 
     @staticmethod
     def post(request):

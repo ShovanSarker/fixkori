@@ -87,16 +87,15 @@ class PlaceOrder(View):
     def post(request):
         logged_in_user = Session.get_user_by_session(request.session['token'])
         client = UserClient.objects.get(user=logged_in_user)
-        area = Area.objects.get(pk=request.POST['area'])
-        item = Item.objects.get(pk=request.POST['item'])
+        area = Area.objects.get(area_name=request.POST['area'])
+        item = Item.objects.get(item_name=request.POST['item'])
         new_order = Order(customer=client,
                           area=area,
                           item=item,
                           brand=request.POST['brand'],
                           model=request.POST['model'],
-                          service_type=request.POST['service_type'],
+                          service_type=int(request.POST['service_type']),
                           date=request.POST['date'],
-                          time=request.POST['time'],
                           address=request.POST['address'],
                           instruction=request.POST['instruction'],
                           description=request.POST['description'])

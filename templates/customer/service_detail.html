@@ -6,9 +6,6 @@
   <div class="container-fluid">
     <div class="header-body">
       <!-- Card stats -->
-      <div class="row">
-        <h1>Detail Order of</h1><br>
-      </div>
     </div>
   </div>
 </div>
@@ -23,26 +20,37 @@
           <div class="card-body pt-0 pt-md-4">
             <div class="text-left">
               <h3>
-                Service Number<span class="font-weight-light"> 27</span>
+                Service Number<span class="font-weight-light"> #{{ selected_order.pk }}</span>
               </h3>
               <div class="h5 font-weight-300">
-                <i class="ni location_pin mr-2"></i>01/12/2018
+                <i class="ni location_pin mr-2"></i>{{ selected_order.created_at|date:"d M, Y" }}
               </div>
               <div class="h4 mt-4">
-                Order Type - <span class="font-weight-light">Car Fixing</span>
+                Order Type - <span class="font-weight-light">{{ selected_order.item.item_name }}</span>
               </div>
               <div class="h4 mt-4">
-                Order Issued By - <span class="font-weight-light">Some User</span>
-              </div>
-              <div class="h4 mt-4">
-                Order served By - <span class="font-weight-light">Some Shop</span>
-              </div>
-              <div class="h4 mt-4">
-                Order Rank Score - <span class="font-weight-light">5 Star</span>
+                Order served By - <span class="font-weight-light">{{ selected_order.service_provider.service_point_name }}</span>
               </div>
               <hr class="my-4" />
               <h3>Order Issue</h3>
-              <p>A description of Issue.</p>
+              <p>{{ selected_order.description }}</p>
+              <div class="h4 mt-4">
+                Order Status - <span class="font-weight-light">{% if selected_order.status == 1 %}
+                                Pending
+                            {% elif selected_order.status == 2 %}
+                                Confirmed
+                            {% elif selected_order.status == 3 %}
+                                Processing
+                            {% elif selected_order.status == 4 %}
+                                Completed
+                            {% elif selected_order.status == 5 %}
+                                Cancelled by User
+                            {% elif selected_order.status == 6 %}
+                                Cancelled by Vendor
+                            {% elif selected_order.status == 7 %}
+                                Incomplete
+                            {% endif %}</span>
+              </div>
             </div>
             <hr class="my-4" />
             <a href="{% url 'service_list' %}">Back To the list</a>
