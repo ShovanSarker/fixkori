@@ -40,7 +40,6 @@ from dashboard.views import CustomerServiceDetail
 from dashboard.views import CustomerProfile
 
 from dashboard.views import OrderLogin
-from dashboard.views import OrderSignUp
 from dashboard.views import Order
 from dashboard.views import OrderElectronic
 from dashboard.views import OrderVehicle
@@ -48,23 +47,30 @@ from dashboard.views import OrderVehicle
 from dashboard.views import Login
 from dashboard.views import Logout
 from dashboard.views import Home
+from dashboard.views import Register
+from dashboard.views import ChangePassword
 
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^admin_index/', view=AdminIndex.as_view(), name='admin_index'),
+    url(r'^$', view=Home.as_view(), name='home'),
     url(r'^add_admin/', view=AddAdmin.as_view(), name='add_admin'),
     url(r'^add_vendor/', view=AddVendor.as_view(), name='add_vendor'),
     url(r'^add_user/', view=AddUser.as_view(), name='add_user'),
+    url(r'^list_vendor/', view=ListVendor.as_view(), name='list_vendor'),
+    url(r'^list_user/', view=ListUser.as_view(), name='list_user'),
+    url(r'^detail_vendor/(?P<vendor_id>[0-9]+)/', view=DetailVendor.as_view(), name='detail_vendor'),
+    url(r'^detail_user/(?P<client_id>[0-9]+)/', view=DetailUser.as_view(), name='detail_user'),
+
+    url(r'^register/', view=Register.as_view(), name='register'),
+    url(r'^change_password/', view=ChangePassword.as_view(), name='change_password'),
+
+    url(r'^admin_index/', view=AdminIndex.as_view(), name='admin_index'),
+    url(r'^list_order/', view=ListOrder.as_view(), name='list_order'),
     url(r'^add_item/', view=AddItem.as_view(), name='add_item'),
     url(r'^add_area/', view=AddArea.as_view(), name='add_area'),
-    url(r'^list_order/', view=ListOrder.as_view(), name='list_order'),
-    url(r'^list_user/', view=ListUser.as_view(), name='list_user'),
-    url(r'^list_vendor/', view=ListVendor.as_view(), name='list_vendor'),
     url(r'^detail_order/', view=DetailOrder.as_view(), name='detail_order'),
-    url(r'^detail_user/', view=DetailUser.as_view(), name='detail_user'),
-    url(r'^detail_vendor/', view=DetailVendor.as_view(), name='detail_vendor'),
     url(r'^order_manage/', view=OrderManage.as_view(), name='order_manage'),
     url(r'^manage/', view=Manage.as_view(), name='manage'),
     url(r'^user/', view=CustomerDashboard.as_view(), name='user'),
@@ -72,13 +78,11 @@ urlpatterns = [
     url(r'^service_detail/', view=CustomerServiceDetail.as_view(), name='service_detail'),
     url(r'^profile/', view=CustomerProfile.as_view(), name='profile'),
     url(r'^order_login/', view=OrderLogin.as_view(), name='order_login'),
-    url(r'^order_signup/', view=OrderSignUp.as_view(), name='order_signup'),
     url(r'^order/', view=Order.as_view(), name='order'),
     url(r'^electronic/', view=OrderElectronic.as_view(), name='electronic'),
     url(r'^vehicle/', view=OrderVehicle.as_view(), name='vehicle'),
     url(r'^login/', view=Login.as_view(), name='login'),
     url(r'^logout/', view=Logout.as_view(), name='logout'),
-    url(r'^$', view=Home.as_view(), name='home'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

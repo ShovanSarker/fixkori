@@ -20,14 +20,14 @@ from dashboard.views.user_access import CustomerServiceDetail
 from dashboard.views.user_access import CustomerProfile
 
 from dashboard.views.user_access import OrderLogin
-from dashboard.views.user_access import OrderSignUp
+from dashboard.views.user_access import Register
 from dashboard.views.user_access import Order
 from dashboard.views.user_access import OrderElectronic
 from dashboard.views.user_access import OrderVehicle
+from dashboard.views.user_access import ChangePassword
 
 from dashboard.views.user_access import Login
 from dashboard.views.user_access import Logout
-
 
 
 from dashboard.views.home import Home
@@ -56,7 +56,6 @@ __all__ = [
     'CustomerServiceDetail',
     'CustomerProfile',
     'OrderLogin',
-    'OrderSignUp',
     'Order',
     'OrderElectronic',
     'OrderVehicle',

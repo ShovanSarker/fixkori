@@ -7,7 +7,7 @@
     <div class="header-body">
       <!-- Card stats -->
       <div class="row">
-        <h1>Detail of {{Vendor Name}}</h1><br>
+        <h1>Detail of {{ vendor_object.service_point_name }}</h1><br>
       </div>
     </div>
   </div>
@@ -23,44 +23,41 @@
           <div class="card-body pt-0 pt-md-4">
             <div class="text-left">
               <h3>
-                Vendor Name
+                {{ vendor_object.service_point_name }}
               </h3>
               <div class="h5 font-weight-300">
-                01/12/2018 (Date Created)
+                {{ vendor_object.created_at|date:"d M, Y" }}
               </div>
               <div class="h4 mt-4">
-                Username - <span class="font-weight-light">User Name</span>
+                Username - <span class="font-weight-light">{{ vendor_object.user.user_name }}</span>
               </div>
               <div class="h4 mt-4">
-                Full Name - <span class="font-weight-light">Full name</span>
+                Owner's Name - <span class="font-weight-light">{{ vendor_object.first_name }} {{ vendor_object.last_name }}</span>
               </div>
               <div class="h4 mt-4">
-                Email Address - <span class="font-weight-light">some@thing.com</span>
+                Email Address - <span class="font-weight-light">{{ vendor_object.email }}</span>
               </div>
               <div class="h4 mt-4">
-                Phone Number - <span class="font-weight-light">#0179721545451</span>
-              </div>
-              <div class="h4 mt-4">
-                Service Point - <span class="font-weight-light">Shope Name</span>
+                Phone Number - <span class="font-weight-light">{{ vendor_object.phone_number }}</span>
               </div>
               <hr class="my-4" />
               <div class="h4 mt-4">
-                Service Type - <span class="font-weight-light">Service Type</span>
+                Service Provides - <span class="font-weight-light">{% for vendor_service in vendor_services %}<br>{{ vendor_service.item.item_name }}{% endfor %}</span>
               </div>
               <div class="h4 mt-4">
-                Area Coverage - <span class="font-weight-light">Area1, Area2</span>
+                Area Covers - <span class="font-weight-light">{% for vendor_area in vendor_areas %}<br>{{ vendor_area.area.area_name }} in {{ vendor_area.area.district }}{% endfor %}</span>
               </div>
               <hr class="my-4" />
               <h3>About</h3>
-              <p>About Shop.</p>
+              <p>{{ vendor_object.about|safe }}</p>
               <h3>About Service</h3>
-              <p>About Shop Service they provide.</p>
+              <p>{{ vendor_object.services|safe }}</p>
               <hr class="my-4" />
               <div class="h4 mt-4">
-                Facebook URL - <span class="font-weight-light">http://www.fb.com/sdfsdf</span>
+                Facebook URL - <span class="font-weight-light">{{ vendor_object.facebook_url }}</span>
               </div>
               <div class="h4 mt-4">
-                Google Map URL - <span class="font-weight-light">http://www.google.com/map</span>
+                Google Map URL - <span class="font-weight-light">{{ vendor_object.google_map_url }}</span>
               </div>
             </div>
             <hr class="my-4" />

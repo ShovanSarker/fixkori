@@ -1,7 +1,9 @@
 import json
 import os
-from django.views import View
+import datetime
 
+from django.views import View
+from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
 from django.shortcuts import render, redirect
@@ -22,6 +24,8 @@ from django.contrib.auth import update_session_auth_hash
 from utility.session import Session
 
 from fixkori_api.models import UserClient
+from fixkori_api.models import UserServiceProvider
+from fixkori_api.models import UserAdmin
 from fixkori_api.models import Order
 from fixkori_api.models import Area
 from fixkori_api.models import Item
@@ -41,8 +45,9 @@ class Home(View):
             return render(request, 'customer/index.html')
 
         if logged_in_user.user_type == constants.USER_TYPE_CLIENT:
-
-            return render(request, 'customer/index.html', {'client': True})
+            logged_in_user_object = UserClient.objects.get(user=logged_in_user)
+            return render(request, 'customer/index.html', {'client': True,
+                                                           'logged_in_user_object': logged_in_user_object})
 
         elif logged_in_user.user_type == constants.USER_TYPE_SERVICE_PROVIDER:
             '''service provider'''
@@ -50,7 +55,29 @@ class Home(View):
 
         elif logged_in_user.user_type == constants.USER_TYPE_ADMIN:
             '''admin'''
-            return render(request, 'admin_vendor/admin_index.html', {'admin': True})
+            yesterday = datetime.date.today() - datetime.timedelta(days=1)
+            total_order = Order.objects.all().count()
+            pending_order = Order.objects.filter(status=constants.ORDER_STATUS_PENDING).count()
+            total_user = UserClient.objects.all().count()
+            new_users = UserClient.objects.filter(created_at__gt=yesterday).count()
+            total_vendor = UserServiceProvider.objects.all().count()
+            service_today = Order.objects.filter(status=constants.ORDER_STATUS_COMPLETED,
+                                                 last_updated__gt=yesterday).count()
+            last_5_orders = Order.objects.filter(status=constants.ORDER_STATUS_PENDING)[:5]
+            last_5_users = UserClient.objects.all()[:5]
+            last_5_vendors = UserServiceProvider.objects.all()[:5]
+            logged_in_user_object = UserAdmin.objects.get(user=logged_in_user)
+            return render(request, 'admin_vendor/admin_index.html', {'admin': True,
+                                                                     'total_order': total_order,
+                                                                     'logged_in_user_object': logged_in_user_object,
+                                                                     'pending_order': pending_order,
+                                                                     'total_user': total_user,
+                                                                     'new_users': new_users,
+                                                                     'total_vendor': total_vendor,
+                                                                     'service_today': service_today,
+                                                                     'last_5_orders': last_5_orders,
+                                                                     'last_5_users': last_5_users,
+                                                                     'last_5_vendors': last_5_vendors})
 
 
 class PlaceOrder(View):

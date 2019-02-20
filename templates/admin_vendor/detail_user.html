@@ -6,7 +6,7 @@
     <div class="header-body">
       <!-- Card stats -->
       <div class="row">
-        <h1>Detail Order of {{User Name}}</h1><br>
+        <h1>{{ client_object.first_name }} {{ client_object.last_name }}</h1><br>
       </div>
     </div>
   </div>
@@ -22,23 +22,60 @@
           <div class="card-body pt-0 pt-md-4">
             <div class="text-left">
               <h3>
-                User Name
+                {{ client_object.first_name }} {{ client_object.last_name }}
               </h3>
               <div class="h5 font-weight-300">
-                01/12/2018 (Date Created)
+                {{ client_object.created_at|date:"d M, Y" }}
               </div>
               <div class="h4 mt-4">
-                Full Name - <span class="font-weight-light">Full name</span>
+                Full Name - <span class="font-weight-light">{{ client_object.first_name }} {{ client_object.last_name }}</span>
               </div>
               <div class="h4 mt-4">
-                Email Address - <span class="font-weight-light">some@thing.com</span>
+                Email Address - <span class="font-weight-light">{{ client_object.user_email }}</span>
               </div>
               <div class="h4 mt-4">
-                Phone Number - <span class="font-weight-light">#0179721545451</span>
+                Phone Number - <span class="font-weight-light">{{ client_object.phone_number }}</span>
               </div>
               <hr class="my-4" />
               <h3>Address</h3>
-              <p>Full Address.</p>
+              <p>{{ client_object.address }}</p>
+              <hr class="my-4" />
+              <h3>Orders</h3>
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                <tr>
+                  <th scope="col">Item Name</th>
+                  <th scope="col">Area</th>
+                  <th scope="col">Service Provider</th>
+                  <th scope="col">Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for order in client_orders %}
+                <tr>
+                  <th scope="row">{{ order.item.item_name }}</th>
+                  <td>{{ order.area.area_name }}</td>
+                  <td>{{ order.service_provider.service_point_name }}</td>
+                  <td>{% if order.status == 1 %}
+                    ORDER_STATUS_PENDING
+                    {% elif order.status == 2 %}
+                    ORDER_STATUS_CONFIRMED
+                    {% elif order.status == 3 %}
+                    ORDER_STATUS_PROCESSING
+                    {% elif order.status == 4 %}
+                    ORDER_STATUS_COMPLETED
+                    {% elif order.status == 5 %}
+                    ORDER_STATUS_USER_CANCELLED
+                    {% elif order.status == 6 %}
+                    ORDER_STATUS_SERVICE_PROVIDER_CANCELLED
+                    {% elif order.status == 7 %}
+                    ORDER_STATUS_INCOMPLETE_ORDER
+                    {% endif %}<a href="{% url 'detail_user' client=client.pk %}" class="btn btn-sm btn-primary">See</a>
+                  </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+              </table>
             </div>
             <hr class="my-4" />
             <a href="{% url 'list_user' %}">Back To the list</a>

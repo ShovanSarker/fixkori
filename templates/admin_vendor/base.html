@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html>
 {% load static %}
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
-    <meta name="author" content="Creative Tim">
-    <title>FixKori | Admin Dashboard</title>
-    <!-- Favicon -->
-    <!-- <link href="./assets/img/brand/favicon.png" rel="icon" type="image/png"> -->
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-    <!-- Icons -->
-    <link href="{% static 'assets/vendor/nucleo/css/nucleo.css' %}" rel="stylesheet">
-    <link href="{% static 'assets/vendor/@fortawesome/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
-    <!-- Argon CSS -->
-    <link type="text/css" href="{% static 'assets/css/argon.css' %}" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
+<meta name="author" content="Creative Tim">
+<title>FixKori | Admin Dashboard</title>
+<!-- Favicon -->
+<!-- <link href="./assets/img/brand/favicon.png" rel="icon" type="image/png"> -->
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+<!-- Icons -->
+<link href="{% static 'assets/vendor/nucleo/css/nucleo.css' %}" rel="stylesheet">
+<link href="{% static 'assets/vendor/@fortawesome/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
+<!-- Argon CSS -->
+<link type="text/css" href="{% static 'assets/css/argon.css' %}" rel="stylesheet">
 </head>
 
 <body>
@@ -26,7 +26,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <!-- Brand -->
-        <a class="navbar-brand pt-0" href="{% url 'admin_index' %}">
+        <a class="navbar-brand pt-0" href="{% url 'home' %}">
             FIX KORI
         </a>
         <!-- User -->
@@ -44,11 +44,11 @@
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    User
+                    {{ logged_in_user_object.first_name }} {{ logged_in_user_object.last_name }}
                 </a>
                 <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
                     <div class="dropdown-divider"></div>
-                    <a href="{% url 'login' %}" class="dropdown-item">
+                    <a href="{% url 'logout' %}" class="dropdown-item">
                         <i class="ni ni-user-run"></i>
                         <span>Logout</span>
                     </a>
@@ -61,7 +61,7 @@
             <div class="navbar-collapse-header d-md-none">
                 <div class="row">
                     <div class="col-6 collapse-brand">
-                        <a href="{% url 'admin_index' %}">
+                        <a href="{% url 'home' %}">
                             FIX KORI
                         </a>
                     </div>
@@ -76,7 +76,7 @@
             <!-- Navigation -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'admin_index' %}">
+                    <a class="nav-link" href="{% url 'home' %}">
                         <i class="ni ni-tv-2 text-primary active"></i> Dashboard
                     </a>
                 </li>
@@ -141,19 +141,32 @@
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
         <div class="container-fluid">
             <!-- Brand -->
-            <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="{% url 'admin_index' %}">Dashboard</a>
+            <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="{% url 'home' %}">Dashboard</a>
+            <!-- Message-->
+            {% if alert %}
+            <div class="alert alert-danger alert-dismissible" role="alert" style="margin-bottom: 0; margin-top: 2px;">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>Warning!</strong> {{ message }}
+            </div>
+            {% endif %}
+            {% if success %}
+            <div class="alert alert-success alert-dismissible" role="alert" style="margin-bottom: 0; margin-top: 2px;">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>{{ message }}</strong>
+            </div>
+            {% endif %}
             <!-- User -->
             <ul class="navbar-nav align-items-center d-none d-md-flex">
                 <li class="nav-item dropdown">
                     <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="media align-items-center">
                             <div class="media-body ml-2 d-none d-lg-block">
-                                <span class="mb-0 text-sm  font-weight-bold">User</span>
+                                <span class="mb-0 text-sm  font-weight-bold">{{ logged_in_user_object.first_name }} {{ logged_in_user_object.last_name }}</span>
                             </div>
                         </div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
-                        <a href="#!" class="dropdown-item">
+                        <a href="{% url 'logout' %}" class="dropdown-item">
                             <i class="ni ni-user-run"></i>
                             <span>Logout</span>
                         </a>

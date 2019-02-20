@@ -14,7 +14,7 @@
 </div>
 <!-- Page content -->
 <div class="container-fluid mt--7">
-  <form>
+  <form role="form" action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
     <div class="row">
 
       <div class="col-xl-8 order-xl-1">
@@ -24,9 +24,9 @@
               <div class="col-8">
                 <h3 class="mb-0">Vendor Addition</h3>
               </div>
-              <div class="col-4 text-right">
-                <a href="#!" class="btn btn-sm btn-primary">Reset</a>
-              </div>
+              <!--<div class="col-4 text-right">-->
+                <!--<a href="#!" class="btn btn-sm btn-primary">Reset</a>-->
+              <!--</div>-->
             </div>
           </div>
           <div class="card-body">
@@ -36,7 +36,7 @@
                 <div class="col-lg-12">
                   <div class="form-group">
                     <label class="form-control-label" for="username">Username</label>
-                    <input type="text" id="username" class="form-control form-control-alternative" placeholder="Username" value="">
+                    <input type="text" id="username" class="form-control form-control-alternative" placeholder="Username" name="user_name" required>
                   </div>
                 </div>
               </div>
@@ -44,13 +44,13 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="first_name">First name</label>
-                    <input type="text" id="first_name" class="form-control form-control-alternative" placeholder="First name" value="">
+                    <input type="text" id="first_name" class="form-control form-control-alternative" placeholder="First name" name="first_name" required>
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="last_name">Last name</label>
-                    <input type="text" id="last_name" class="form-control form-control-alternative" placeholder="Last name" value="">
+                    <input type="text" id="last_name" class="form-control form-control-alternative" placeholder="Last name" name="last_name" required>
                   </div>
                 </div>
               </div>
@@ -58,13 +58,13 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="phone">Phone Number</label>
-                    <input type="text" id="phone" class="form-control form-control-alternative" placeholder="Phone Number" value="">
+                    <input type="text" id="phone" class="form-control form-control-alternative" placeholder="Phone Number" name="phone_number" required>
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="email">Email Address</label>
-                    <input type="email" id="email" class="form-control form-control-alternative" placeholder="Email Address" value="">
+                    <input type="email" id="email" class="form-control form-control-alternative" placeholder="Email Address" name="email" required>
                   </div>
                 </div>
               </div>
@@ -77,13 +77,13 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="form-control-label" for="address">Address</label>
-                    <input id="address" class="form-control form-control-alternative" placeholder="Address" value="" type="text">
+                    <input id="address" class="form-control form-control-alternative" placeholder="Address" name="address" type="text" required>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="form-control-label" for="service_point">Service Point</label>
-                    <input id="service_point" class="form-control form-control-alternative" placeholder="Service Point" value="" type="text">
+                    <input id="service_point" class="form-control form-control-alternative" placeholder="Service Point" name="service_point_name" type="text" required>
                   </div>
                 </div>
               </div>
@@ -96,31 +96,31 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="form-control-label" for="photo1">Photo 1</label>
-                    <input id="photo1" type="file" name="pic" accept="image/*">
+                    <input id="photo1" type="file" name="image_1" accept="image/*" required>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="form-control-label" for="photo2">Photo 2</label>
-                    <input id="photo2" type="file" name="pic" accept="image/*">
+                    <input id="photo2" type="file" name="image_2" accept="image/*" required>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="form-control-label" for="photo3">Photo 3</label>
-                    <input id="photo3" type="file" name="pic" accept="image/*">
+                    <input id="photo3" type="file" name="image_3" accept="image/*" required>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="form-control-label" for="photo4">Photo 4</label>
-                    <input id="photo4" type="file" name="pic" accept="image/*">
+                    <input id="photo4" type="file" name="image_4" accept="image/*" required>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="form-control-label" for="photo5">Photo 5</label>
-                    <input id="photo5" type="file" name="pic" accept="image/*">
+                    <input id="photo5" type="file" name="image_5" accept="image/*" required>
                   </div>
                 </div>
               </div>
@@ -133,13 +133,13 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="form-control-label" for="about">About</label>
-                    <textarea id="about" rows="4" class="form-control form-control-alternative" placeholder="A few words about you ..."></textarea>
+                    <textarea id="about" rows="4" class="form-control form-control-alternative" placeholder="A few words about you ..." name="about" required></textarea>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="form-control-label" for="about_service">About Services</label>
-                    <textarea id="about_service" rows="4" class="form-control form-control-alternative" placeholder="A few words about your Services"></textarea>
+                    <textarea id="about_service" rows="4" class="form-control form-control-alternative" placeholder="A few words about your Services" name="services" required></textarea>
                   </div>
                 </div>
               </div>
@@ -152,13 +152,13 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="fb_url">Facebook URL</label>
-                    <input type="text" id="fb_url" class="form-control form-control-alternative" placeholder="Face Book Url" value="">
+                    <input type="text" id="fb_url" class="form-control form-control-alternative" placeholder="Your Facebook Page URL" name="facebook_url" required>
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="google_map_url">Google Map URL</label>
-                    <input type="text" id="google_map_url" class="form-control form-control-alternative" placeholder="Google Map URL" value="">
+                    <input type="text" id="google_map_url" class="form-control form-control-alternative" placeholder="Google Map URL" name="google_map_url" required>
                   </div>
                 </div>
               </div>
@@ -166,7 +166,7 @@
             <div class="pl-lg-4">
               <div class="row">
                 <div class="col-12 text-right">
-                  <a href="#!" class="btn btn-md btn-primary">Submit</a>
+                  <button type="submit" class="btn btn-md btn-primary">Submit</button>
                 </div>
               </div>
             </div>
@@ -181,7 +181,7 @@
               <div class="pl-lg-4">
                 <div class="row">
                   {% for item in all_items %}
-                  <div class="custom-control custom-checkbox col-3 mb-3">
+                  <div class="custom-control custom-checkbox col-4 mb-4">
                     <input class="custom-control-input" name="item" id="{{ item.id }}" value="{{ item.id }}" type="checkbox">
                     <label class="custom-control-label" for="{{ item.id }}">{{ item.item_name }}</label>
                   </div>
@@ -194,8 +194,8 @@
               <div class="pl-lg-4">
                 <div class="row">
                   {% for area in all_areas %}
-                  <div class="custom-control custom-checkbox col-3 mb-3">
-                    <input class="custom-control-input" name="item" id="{{ area.id }}" value="{{ area.id }}" type="checkbox">
+                  <div class="custom-control custom-checkbox col-4 mb-4">
+                    <input class="custom-control-input" name="area" id="{{ area.id }}" value="{{ area.id }}" type="checkbox">
                     <label class="custom-control-label" for="{{ area.id }}">{{ area.area_name }}</label>
                   </div>
                   {% endfor %}

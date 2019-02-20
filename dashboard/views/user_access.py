@@ -23,6 +23,7 @@ from fixkori_api.models import UserClient
 from fixkori_api.models import UserServiceProvider
 from fixkori_api.models import UserServiceProviderArea
 from fixkori_api.models import UserServiceProviderItem
+from fixkori_api.models import Order
 
 from utility.uuid_generator import UUID
 import constants
@@ -56,159 +57,302 @@ class AddItem(View):
 class AddAdmin(View):
     @staticmethod
     def post(request):
-        first_name = request.POST['first_name']
-        last_name = request.POST['last_name']
-        user_name = request.POST['user_name']
-        phone_number = request.POST['phone_number']
-        user_email = request.POST['user_email']
-        password = request.POST['password']
-        if is_new_user(user_name, phone_number, user_email):
-            hash_key = UUID.uuid_generator()
-            add_to_login_list(hash_key, user_email, password)
-            listed_user = add_to_user_list(user_name, phone_number, user_email, hash_key, constants.USER_TYPE_ADMIN)
-            new_user = UserAdmin(user=listed_user,
-                                 first_name=first_name,
-                                 last_name=last_name,
-                                 phone_number=phone_number,
-                                 user_email=user_email)
-            new_user.save()
-            return render(request, 'admin_vendor/add_admin.html', {'success': True, 'message': 'Successfully Added!'})
+        if 'token' not in request.session:
+            return render(request, 'customer/index.html')
+        logged_in_user = Session.get_user_by_session(request.session['token'])
+        if logged_in_user is None:
+            return render(request, 'customer/index.html')
+
+        if logged_in_user.user_type == constants.USER_TYPE_ADMIN:
+            '''admin'''
+            logged_in_user_object = UserAdmin.objects.get(user=logged_in_user)
+
+            first_name = request.POST['first_name']
+            last_name = request.POST['last_name']
+            user_name = request.POST['user_name']
+            phone_number = request.POST['phone_number']
+            user_email = request.POST['user_email']
+            password = request.POST['password']
+            if is_new_user(user_name, phone_number, user_email):
+                hash_key = UUID.uuid_generator()
+                add_to_login_list(hash_key, user_email, password)
+                listed_user = add_to_user_list(user_name, phone_number, user_email, hash_key, constants.USER_TYPE_ADMIN)
+                new_user = UserAdmin(user=listed_user,
+                                     first_name=first_name,
+                                     last_name=last_name,
+                                     phone_number=phone_number,
+                                     user_email=user_email)
+                new_user.save()
+                return render(request, 'admin_vendor/add_admin.html',
+                              {'success': True,
+                               'admin': True,
+                               'logged_in_user_object': logged_in_user_object,
+                               'message': 'Successfully Added!'})
+            else:
+                return render(request, 'admin_vendor/add_admin.html',
+                              {'alert': True,
+                               'admin': True,
+                               'logged_in_user_object': logged_in_user_object,
+                               'message': 'User Already Registered!'})
         else:
-            return render(request, 'admin_vendor/add_admin.html', {'alert': True, 'message': 'User Already Registered!'})
+            return render(request, 'customer/index.html')
 
     @staticmethod
     def get(request):
-        return render(request, 'admin_vendor/add_admin.html')
+        if 'token' not in request.session:
+            return render(request, 'customer/index.html')
+        logged_in_user = Session.get_user_by_session(request.session['token'])
+        if logged_in_user is None:
+            return render(request, 'customer/index.html')
+
+        if logged_in_user.user_type == constants.USER_TYPE_ADMIN:
+            '''admin'''
+            logged_in_user_object = UserAdmin.objects.get(user=logged_in_user)
+            return render(request, 'admin_vendor/add_admin.html', {'admin': True,
+                                                                   'logged_in_user_object': logged_in_user_object})
+        else:
+            return render(request, 'customer/index.html')
 
 
 class AddUser(View):
     @staticmethod
     def post(request):
-        first_name = request.POST['first_name']
-        last_name = request.POST['last_name']
-        user_name = None
-        phone_number = request.POST['phone_number']
-        user_email = request.POST['user_email']
-        address = request.POST['address']
-        password = 'abcd1234'
-        if is_new_user(user_name, phone_number, user_email):
-            hash_key = UUID.uuid_generator()
-            add_to_login_list(hash_key, user_email, password)
-            listed_user = add_to_user_list(user_name, phone_number, user_email, hash_key, constants.USER_TYPE_CLIENT)
-            new_user = UserClient(user=listed_user,
-                                  first_name=first_name,
-                                  last_name=last_name,
-                                  phone_number=phone_number,
-                                  address=address,
-                                  user_email=user_email)
-            new_user.save()
-            return render(request, 'admin_vendor/add_user.html', {'success': True, 'message': 'Successfully Added!'})
+        if 'token' not in request.session:
+            return render(request, 'customer/index.html')
+        logged_in_user = Session.get_user_by_session(request.session['token'])
+        if logged_in_user is None:
+            return render(request, 'customer/index.html')
+
+        if logged_in_user.user_type == constants.USER_TYPE_ADMIN:
+            '''admin'''
+            logged_in_user_object = UserAdmin.objects.get(user=logged_in_user)
+
+            first_name = request.POST['first_name']
+            last_name = request.POST['last_name']
+            user_name = None
+            phone_number = request.POST['phone_number']
+            user_email = request.POST['user_email']
+            address = request.POST['address']
+            password = 'abcd1234'
+            if is_new_user(user_name, phone_number, user_email):
+                hash_key = UUID.uuid_generator()
+                add_to_login_list(hash_key, user_email, password)
+                listed_user = add_to_user_list(user_name, phone_number, user_email, hash_key,
+                                               constants.USER_TYPE_CLIENT)
+                new_user = UserClient(user=listed_user,
+                                      first_name=first_name,
+                                      last_name=last_name,
+                                      phone_number=phone_number,
+                                      address=address,
+                                      user_email=user_email)
+                new_user.save()
+                return render(request, 'admin_vendor/add_user.html',
+                              {'success': True,
+                               'admin': True,
+                               'logged_in_user_object': logged_in_user_object,
+                               'message': 'Successfully Added!'})
+            else:
+                return render(request, 'admin_vendor/add_user.html',
+                              {'alert': True,
+                               'admin': True,
+                               'logged_in_user_object': logged_in_user_object,
+                               'message': 'User Already Registered!'})
         else:
-            return render(request, 'admin_vendor/add_user.html', {'alert': True, 'message': 'User Already Registered!'})
+            return render(request, 'customer/index.html')
 
     @staticmethod
     def get(request):
-        return render(request, 'admin_vendor/add_user.html')
+        if 'token' not in request.session:
+            return render(request, 'customer/index.html')
+        logged_in_user = Session.get_user_by_session(request.session['token'])
+        if logged_in_user is None:
+            return render(request, 'customer/index.html')
+
+        if logged_in_user.user_type == constants.USER_TYPE_ADMIN:
+            '''admin'''
+            logged_in_user_object = UserAdmin.objects.get(user=logged_in_user)
+            return render(request, 'admin_vendor/add_user.html', {'admin': True,
+                                                                  'logged_in_user_object': logged_in_user_object})
+        else:
+            return render(request, 'customer/index.html')
 
 
 class AddVendor(View):
     @staticmethod
     def post(request):
-        print(request.FILES)
-        first_name = request.POST['first_name']
-        last_name = request.POST['last_name']
-        user_name = request.POST['user_name']
-        phone_number = request.POST['phone_number']
-        email = request.POST['email']
-        address = request.POST['address']
-        service_point_name = request.POST['service_point_name']
-        image_1 = request.FILES['image_1']
-        image_2 = request.FILES['image_2']
-        image_3 = request.FILES['image_3']
-        image_4 = request.FILES['image_4']
-        image_5 = request.FILES['image_5']
-        about = request.POST['about']
-        services = request.POST['services']
-        facebook_url = request.POST['facebook_url']
-        google_map_url = request.POST['google_map_url']
+        if 'token' not in request.session:
+            return render(request, 'customer/index.html')
+        logged_in_user = Session.get_user_by_session(request.session['token'])
+        if logged_in_user is None:
+            return render(request, 'customer/index.html')
 
-        password = 'abcd1234'
-        all_items = Item.objects.filter(active=True)
-        all_areas = Area.objects.filter(active=True).order_by('area_name').reverse()
-        # todo have to add random number and send it to user via SMS
-        if is_new_user(user_name, phone_number, email):
-            hash_key = UUID.uuid_generator()
-            add_to_login_list(hash_key, email, password)
-            listed_user = add_to_user_list(user_name, phone_number, email,
-                                           hash_key, constants.USER_TYPE_SERVICE_PROVIDER)
-            new_user = UserServiceProvider(user=listed_user,
-                                           first_name=first_name,
-                                           last_name=last_name,
-                                           address=address,
-                                           phone_number=phone_number,
-                                           service_point_name=service_point_name,
-                                           image_1=image_1,
-                                           image_2=image_2,
-                                           image_3=image_3,
-                                           image_4=image_4,
-                                           image_5=image_5,
-                                           about=about,
-                                           services=services,
-                                           facebook_url=facebook_url,
-                                           google_map_url=google_map_url,
-                                           email=email)
-            new_user.save()
-            areas = request.POST.getlist('area')
-            items = request.POST.getlist('item')
-            for area in areas:
-                selected_area = Area.objects.get(id=area)
-                new_assigned_area = UserServiceProviderArea(user=new_user,
-                                                            area=selected_area)
-                new_assigned_area.save()
+        if logged_in_user.user_type == constants.USER_TYPE_ADMIN:
+            '''admin'''
+            logged_in_user_object = UserAdmin.objects.get(user=logged_in_user)
+            first_name = request.POST['first_name']
+            last_name = request.POST['last_name']
+            user_name = request.POST['user_name']
+            phone_number = request.POST['phone_number']
+            email = request.POST['email']
+            address = request.POST['address']
+            service_point_name = request.POST['service_point_name']
+            image_1 = request.FILES['image_1']
+            image_2 = request.FILES['image_2']
+            image_3 = request.FILES['image_3']
+            image_4 = request.FILES['image_4']
+            image_5 = request.FILES['image_5']
+            about = request.POST['about']
+            services = request.POST['services']
+            facebook_url = request.POST['facebook_url']
+            google_map_url = request.POST['google_map_url']
 
-            for item in items:
-                selected_item = Item.objects.get(id=item)
-                new_assigned_item = UserServiceProviderItem(user=new_user,
-                                                            item=selected_item)
-                new_assigned_item.save()
+            password = 'abcd1234'
+            all_items = Item.objects.filter(active=True)
+            all_areas = Area.objects.filter(active=True).order_by('area_name').reverse()
+            # todo have to add random number and send it to user via SMS
+            if is_new_user(user_name, phone_number, email):
+                hash_key = UUID.uuid_generator()
+                add_to_login_list(hash_key, email, password)
+                listed_user = add_to_user_list(user_name, phone_number, email,
+                                               hash_key, constants.USER_TYPE_SERVICE_PROVIDER)
+                new_user = UserServiceProvider(user=listed_user,
+                                               first_name=first_name,
+                                               last_name=last_name,
+                                               address=address,
+                                               phone_number=phone_number,
+                                               service_point_name=service_point_name,
+                                               image_1=image_1,
+                                               image_2=image_2,
+                                               image_3=image_3,
+                                               image_4=image_4,
+                                               image_5=image_5,
+                                               about=about,
+                                               services=services,
+                                               facebook_url=facebook_url,
+                                               google_map_url=google_map_url,
+                                               email=email)
+                new_user.save()
+                areas = request.POST.getlist('area')
+                items = request.POST.getlist('item')
+                for area in areas:
+                    selected_area = Area.objects.get(id=area)
+                    new_assigned_area = UserServiceProviderArea(user=new_user,
+                                                                area=selected_area)
+                    new_assigned_area.save()
 
-            return render(request, 'admin_vendor/add_vendor.html',
-                          {'success': True,
-                           'message': 'Successfully Added!',
-                           'all_areas': all_areas,
-                           'all_items': all_items})
-        else:
-            return render(request, 'admin_vendor/add_vendor.html',
-                          {'alert': True,
-                           'message': 'User Already Registered!',
-                           'all_areas': all_areas,
-                           'all_items': all_items})
+                for item in items:
+                    selected_item = Item.objects.get(id=item)
+                    new_assigned_item = UserServiceProviderItem(user=new_user,
+                                                                item=selected_item)
+                    new_assigned_item.save()
+
+                return render(request, 'admin_vendor/add_vendor.html',
+                              {'admin': True,
+                               'success': True,
+                               'message': 'Successfully Added!',
+                               'all_areas': all_areas,
+                               'all_items': all_items,
+                               'logged_in_user_object': logged_in_user_object})
+            else:
+                return render(request, 'admin_vendor/add_vendor.html',
+                              {'admin': True,
+                               'alert': True,
+                               'message': 'User Already Registered!',
+                               'all_areas': all_areas,
+                               'all_items': all_items,
+                               'logged_in_user_object': logged_in_user_object})
 
     @staticmethod
     def get(request):
-        all_items = Item.objects.filter(active=True)
-        all_areas = Area.objects.filter(active=True).order_by('area_name')
-        return render(request, 'admin_vendor/add_vendor.html',
-                      {'all_areas': all_areas,
-                       'all_items': all_items})
+        if 'token' not in request.session:
+            return render(request, 'customer/index.html')
+        logged_in_user = Session.get_user_by_session(request.session['token'])
+        if logged_in_user is None:
+            return render(request, 'customer/index.html')
+
+        if logged_in_user.user_type == constants.USER_TYPE_ADMIN:
+            '''admin'''
+            logged_in_user_object = UserAdmin.objects.get(user=logged_in_user)
+            all_items = Item.objects.filter(active=True)
+            all_areas = Area.objects.filter(active=True).order_by('area_name')
+            return render(request, 'admin_vendor/add_vendor.html', {'admin': True,
+                                                                    'all_areas': all_areas,
+                                                                    'all_items': all_items,
+                                                                    'logged_in_user_object': logged_in_user_object})
+        else:
+            return render(request, 'customer/index.html')
 
 
 class ListOrder(View):
     @staticmethod
     def get(request):
-        return render(request, 'admin_vendor/list_order.html')
+        if 'token' not in request.session:
+            return render(request, 'customer/index.html')
+        logged_in_user = Session.get_user_by_session(request.session['token'])
+        if logged_in_user is None:
+            return render(request, 'customer/index.html')
+
+        if logged_in_user.user_type == constants.USER_TYPE_ADMIN:
+            '''admin'''
+            logged_in_user_object = UserAdmin.objects.get(user=logged_in_user)
+            all_items = Item.objects.filter(active=True)
+            all_areas = Area.objects.filter(active=True).order_by('area_name')
+            return render(request, 'admin_vendor/list_order.html', {'admin': True,
+                                                                    'all_areas': all_areas,
+                                                                    'all_items': all_items,
+                                                                    'logged_in_user_object': logged_in_user_object})
+        else:
+            return render(request, 'customer/index.html')
 
 
 class ListUser(View):
     @staticmethod
     def get(request):
-        return render(request, 'admin_vendor/list_user.html')
+        if 'token' not in request.session:
+            return render(request, 'customer/index.html')
+        logged_in_user = Session.get_user_by_session(request.session['token'])
+        if logged_in_user is None:
+            return render(request, 'customer/index.html')
+
+        if logged_in_user.user_type == constants.USER_TYPE_ADMIN:
+            '''admin'''
+            logged_in_user_object = UserAdmin.objects.get(user=logged_in_user)
+            if 'toggle' in request.GET:
+                toggle_client = UserClient.objects.get(pk=request.GET['toggle'])
+                toggle_client.active = not toggle_client.active
+                toggle_client.save()
+                return redirect(reverse('list_user'))
+            clients = UserClient.objects.all()
+            return render(request, 'admin_vendor/list_user.html', {'admin': True,
+                                                                   'logged_in_user_object': logged_in_user_object,
+                                                                   'clients': clients})
+        else:
+            return render(request, 'customer/index.html')
 
 
 class ListVendor(View):
     @staticmethod
     def get(request):
-        return render(request, 'admin_vendor/list_vendor.html')
+        if 'token' not in request.session:
+            return render(request, 'customer/index.html')
+        logged_in_user = Session.get_user_by_session(request.session['token'])
+        if logged_in_user is None:
+            return render(request, 'customer/index.html')
+
+        if logged_in_user.user_type == constants.USER_TYPE_ADMIN:
+            '''admin'''
+            logged_in_user_object = UserAdmin.objects.get(user=logged_in_user)
+            if 'toggle' in request.GET:
+                toggle_vendor = UserServiceProvider.objects.get(pk=request.GET['toggle'])
+                toggle_vendor.active = not toggle_vendor.active
+                toggle_vendor.save()
+                return redirect(reverse('list_vendor'))
+            vendors = UserServiceProvider.objects.all()
+            return render(request, 'admin_vendor/list_vendor.html', {'admin': True,
+                                                                     'logged_in_user_object': logged_in_user_object,
+                                                                     'vendors': vendors})
+        else:
+            return render(request, 'customer/index.html')
 
 
 class DetailOrder(View):
@@ -219,14 +363,48 @@ class DetailOrder(View):
 
 class DetailUser(View):
     @staticmethod
-    def get(request):
-        return render(request, 'admin_vendor/detail_user.html')
+    def get(request, client_id):
+        if 'token' not in request.session:
+            return render(request, 'customer/index.html')
+        logged_in_user = Session.get_user_by_session(request.session['token'])
+        if logged_in_user is None:
+            return render(request, 'customer/index.html')
+
+        if logged_in_user.user_type == constants.USER_TYPE_ADMIN:
+            '''admin'''
+            logged_in_user_object = UserAdmin.objects.get(user=logged_in_user)
+            client_object = UserClient.objects.get(pk=client_id)
+            client_orders = Order.objects.filter(customer=client_object)
+            return render(request, 'admin_vendor/detail_user.html', {'admin': True,
+                                                                     'logged_in_user_object': logged_in_user_object,
+                                                                     'client_object': client_object,
+                                                                     'client_orders': client_orders})
+        else:
+            return render(request, 'customer/index.html')
 
 
 class DetailVendor(View):
     @staticmethod
-    def get(request):
-        return render(request, 'admin_vendor/detail_vendor.html')
+    def get(request, vendor_id):
+        if 'token' not in request.session:
+            return render(request, 'customer/index.html')
+        logged_in_user = Session.get_user_by_session(request.session['token'])
+        if logged_in_user is None:
+            return render(request, 'customer/index.html')
+
+        if logged_in_user.user_type == constants.USER_TYPE_ADMIN:
+            '''admin'''
+            logged_in_user_object = UserAdmin.objects.get(user=logged_in_user)
+            vendor_object = UserServiceProvider.objects.get(pk=vendor_id)
+            vendor_services = UserServiceProviderItem.objects.filter(user=vendor_object)
+            vendor_areas = UserServiceProviderArea.objects.filter(user=vendor_object)
+            return render(request, 'admin_vendor/detail_vendor.html', {'admin': True,
+                                                                       'logged_in_user_object': logged_in_user_object,
+                                                                       'vendor_object': vendor_object,
+                                                                       'vendor_areas': vendor_areas,
+                                                                       'vendor_services': vendor_services})
+        else:
+            return render(request, 'customer/index.html')
 
 
 class OrderManage(View):
@@ -280,6 +458,17 @@ class OrderSignUp(View):
 class Order(View):
     @staticmethod
     def get(request):
+        if 'token' not in request.session:
+            return redirect(reverse('home'))
+        logged_in_user = Session.get_user_by_session(request.session['token'])
+        if logged_in_user is None:
+            return redirect(reverse('home'))
+
+        if logged_in_user.user_type == constants.USER_TYPE_CLIENT:
+            '''client'''
+            logged_in_user_object = UserClient.objects.get(user=logged_in_user)
+            return render(request, 'order/index.html', {'admin': True,
+                                                        'logged_in_user_object': logged_in_user_object})
         return render(request, 'order/index.html')
 
 
@@ -334,7 +523,7 @@ class Login(View):
     @staticmethod
     def get(request):
 
-        return render(request, 'admin_vendor/login.html')
+        return render(request, 'order/login.html')
 
     @staticmethod
     def post(request):
@@ -358,7 +547,7 @@ class Login(View):
         if 'username' and 'password' in post_data:
             user_object = find_user_from_credentials(post_data['username'])
             if user_object is None:
-                return render(request, 'admin_vendor/login.html', {
+                return render(request, 'order/login.html', {
                     'alert': True,
                     'message': 'User Not Registered'})
             else:
@@ -366,15 +555,15 @@ class Login(View):
 
             user = authenticate(username=user_name, password=post_data['password'])
             if user is None:
-                return render(request, 'admin_vendor/login.html', {
+                return render(request, 'order/login.html', {
                     'alert': True,
                     'message': 'Password is incorrect. Please Try again !'})
             else:
                 login(request, user)
                 request.session['token'] = Session.session_create(user_object)
                 return redirect(reverse('home'))
-        return render(request, 'admin_vendor/login.html', {'alert': False,
-                                                           'message': 'Something bad happened!'})
+        return render(request, 'order/login.html', {'alert': False,
+                                                    'message': 'Something bad happened!'})
 
 
 class Logout(View):
@@ -396,32 +585,73 @@ class Logout(View):
         return redirect(reverse('home'))
 
 
+class Register(View):
+    @staticmethod
+    def get(request):
+        if 'token' not in request.session:
+            return render(request, 'order/signup.html')
+        else:
+            return redirect(reverse('home'))
+
+    @staticmethod
+    def post(request):
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        user_name = None
+        phone_number = request.POST['phone_number']
+        user_email = request.POST['user_email']
+        address = None
+        password = 'abcd1234'
+        if is_new_user(user_name, phone_number, user_email):
+            hash_key = UUID.uuid_generator()
+            add_to_login_list(hash_key, user_email, password)
+            listed_user = add_to_user_list(user_name, phone_number, user_email, hash_key,
+                                           constants.USER_TYPE_CLIENT)
+            new_user = UserClient(user=listed_user,
+                                  first_name=first_name,
+                                  last_name=last_name,
+                                  phone_number=phone_number,
+                                  address=address,
+                                  user_email=user_email)
+            new_user.save()
+            return render(request, 'order/signup.html',
+                          {'success': True,
+                           'message': 'Successfully Added!'})
+        else:
+            return render(request, 'order/signup.html',
+                          {'alert': True,
+                           'message': 'User Already Registered!'})
+
+
 class ChangePassword(View):
+
     @staticmethod
     @login_required(login_url='/login/')
     def get(request):
-        user = Session.get_user_by_session(request.session['token'])
-        if user is False:
-            logout(request)
+        if 'token' not in request.session:
             return redirect(reverse('home'))
-        return render(request, 'change_pass.html', {'page_title': 'CHANGE PASSWORD',
-                                                    'username': user.user_name})
+        logged_in_user = Session.get_user_by_session(request.session['token'])
+        if logged_in_user is None:
+            return redirect(reverse('home'))
+        logged_in_user_object = UserClient.objects.get(user=logged_in_user)
+        return render(request, 'order/change_password.html', {'logged_in_user_object': logged_in_user_object})
 
     @staticmethod
     @login_required(login_url='/login/')
     def post(request):
-        user = Session.get_user_by_session(request.session['token'])
+        logged_in_user = Session.get_user_by_session(request.session['token'])
+        logged_in_user_object = UserClient.objects.get(user=logged_in_user)
         if 'csrfmiddlewaretoken' in request.POST:
 
-            u = User.objects.get(username=user.user_id)
+            u = User.objects.get(username=logged_in_user.user_id)
             u.set_password(request.POST['password'])
             u.save()
             update_session_auth_hash(request, u)
-            return render(request, 'change_pass.html', {'page_title': 'CHANGE PASSWORD',
-                                                        'success': True,
-                                                        'message': 'Password Successfully Changed',
-                                                        'username': user.user_name})
+            return render(request, 'order/change_password.html', {'page_title': 'CHANGE PASSWORD',
+                                                                  'success': True,
+                                                                  'message': 'Password Successfully Changed',
+                                                                  'logged_in_user_object': logged_in_user_object})
 
         else:
-            return render(request, 'change_pass.html', {'page_title': 'CHANGE PASSWORD',
-                                                        'username': user.user_name})
+            return render(request, 'order/change_password.html', {'page_title': 'CHANGE PASSWORD',
+                                                                  'logged_in_user_object': logged_in_user_object})

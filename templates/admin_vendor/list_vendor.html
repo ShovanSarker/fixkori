@@ -19,7 +19,7 @@
         <div class="card-header border-0">
           <div class="row align-items-center">
             <div class="col">
-              <h3 class="mb-0">Orders(Datewise Sorted)</h3>
+              <h3 class="mb-0">List of Service Providers</h3>
             </div>
           </div>
         </div>
@@ -28,91 +28,28 @@
           <table class="table align-items-center table-flush">
             <thead class="thead-light">
             <tr>
-              <th scope="col">Issue</th>
-              <th scope="col">Type</th>
-              <th scope="col">Status</th>
-              <th scope="col">Date</th>
-              <th scope="col">Detail</th>
+              <th scope="col">Service Point Name</th>
+              <th scope="col">Owner's Name</th>
+              <th scope="col">Phone Number</th>
+              <th scope="col">Email</th>
+              <th scope="col">Action</th>
             </tr>
             </thead>
             <tbody>
+            {% for vendor in vendors %}
             <tr>
-              <th scope="row">Car Fixing</th>
-              <td>Engine</td>
-              <td>Done</td>
-              <td>01/01/2019</td>
-              <td><a href="{% url 'detail_vendor' %}" class="btn btn-sm btn-primary">See</a></td>
+              <th scope="row">{{ vendor.service_point_name }}</th>
+              <td>{{ vendor.first_name }} {{ vendor.last_name }}</td>
+              <td>{{ vendor.phone_number }}</td>
+              <td>{{ vendor.email }}</td>
+              <td>{% if vendor.active %}
+                <a href="{% url 'list_vendor' %}?toggle={{ vendor.pk }}" class="btn btn-sm btn-success">Active</a>
+                {% else %}
+                <a href="{% url 'list_vendor' %}?toggle={{ vendor.pk }}" class="btn btn-sm btn-danger">Blocked</a>
+                {% endif %}<a href="{% url 'detail_vendor' vendor_id=vendor.pk %}" class="btn btn-sm btn-primary">See</a>
+              </td>
             </tr>
-            <tr>
-              <th scope="row">Car Fixing</th>
-              <td>Engine</td>
-              <td>Done</td>
-              <td>01/01/2019</td>
-              <td><a href="{% url 'detail_vendor' %}" class="btn btn-sm btn-primary">See</a></td>
-            </tr>
-            <tr>
-              <th scope="row">Car Fixing</th>
-              <td>Engine</td>
-              <td>Done</td>
-              <td>01/01/2019</td>
-              <td><a href="{% url 'detail_vendor' %}" class="btn btn-sm btn-primary">See</a></td>
-            </tr>
-            <tr>
-              <th scope="row">Car Fixing</th>
-              <td>Engine</td>
-              <td>Done</td>
-              <td>01/01/2019</td>
-              <td><a href="{% url 'detail_vendor' %}" class="btn btn-sm btn-primary">See</a></td>
-            </tr>
-            <tr>
-              <th scope="row">Car Fixing</th>
-              <td>Engine</td>
-              <td>Done</td>
-              <td>01/01/2019</td>
-              <td><a href="{% url 'detail_vendor' %}" class="btn btn-sm btn-primary">See</a></td>
-            </tr>
-            <tr>
-              <th scope="row">Car Fixing</th>
-              <td>Engine</td>
-              <td>Done</td>
-              <td>01/01/2019</td>
-              <td><a href="{% url 'detail_vendor' %}" class="btn btn-sm btn-primary">See</a></td>
-            </tr>
-            <tr>
-              <th scope="row">Car Fixing</th>
-              <td>Engine</td>
-              <td>Done</td>
-              <td>01/01/2019</td>
-              <td><a href="{% url 'detail_vendor' %}" class="btn btn-sm btn-primary">See</a></td>
-            </tr>
-            <tr>
-              <th scope="row">Car Fixing</th>
-              <td>Engine</td>
-              <td>Done</td>
-              <td>01/01/2019</td>
-              <td><a href="{% url 'detail_vendor' %}" class="btn btn-sm btn-primary">See</a></td>
-            </tr>
-            <tr>
-              <th scope="row">Car Fixing</th>
-              <td>Engine</td>
-              <td>Done</td>
-              <td>01/01/2019</td>
-              <td><a href="{% url 'detail_vendor' %}" class="btn btn-sm btn-primary">See</a></td>
-            </tr>
-            <tr>
-              <th scope="row">Car Fixing</th>
-              <td>Engine</td>
-              <td>Done</td>
-              <td>01/01/2019</td>
-              <td><a href="{% url 'detail_vendor' %}" class="btn btn-sm btn-primary">See</a></td>
-            </tr>
-            <tr>
-              <th scope="row">Car Fixing</th>
-              <td>Engine</td>
-              <td>Done</td>
-              <td>01/01/2019</td>
-              <td><a href="{% url 'detail_vendor' %}" class="btn btn-sm btn-primary">See</a></td>
-            </tr>
+            {% endfor %}
             </tbody>
           </table>
         </div>
