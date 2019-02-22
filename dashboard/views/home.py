@@ -100,6 +100,10 @@ class PlaceOrder(View):
                           instruction=request.POST['instruction'],
                           description=request.POST['description'])
         new_order.save()
+        greeting_text = 'We received your order. Allow us some time, and we will contact you as soon as possible.' \
+                        ' Happy Fixing!'
+        send_now(client.phone_number, greeting_text)
+        send_now('01737233902', 'New order! Please check fixkori!')
         return redirect(reverse('home'))
 
     @staticmethod

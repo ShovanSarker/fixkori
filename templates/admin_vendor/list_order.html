@@ -29,7 +29,7 @@
           <table class="table align-items-center table-flush">
             <thead class="thead-light">
             <tr>
-              <th scope="col">Issue</th>
+              <th scope="col">User</th>
               <th scope="col">Type</th>
               <th scope="col">Status</th>
               <th scope="col">Date</th>
@@ -37,83 +37,29 @@
             </tr>
             </thead>
             <tbody>
+            {% for order in all_orders %}
             <tr>
-              <th scope="row">Car Fixing</th>
-              <td>Engine</td>
-              <td>Done</td>
-              <td>01/01/2019</td>
-              <td><a href="{% url 'detail_order' %}" class="btn btn-sm btn-primary">See</a></td>
+              <th scope="row">{{ order.customer.first_name }} {{ order.customer.last_name }}</th>
+              <td>{{ order.item.item_name }}</td>
+              <td>{% if order.status == 1 %}
+                Pending
+                {% elif order.status == 2 %}
+                Confirmed
+                {% elif order.status == 3 %}
+                Processing
+                {% elif order.status == 4 %}
+                Completed
+                {% elif order.status == 5 %}
+                Cancelled by User
+                {% elif order.status == 6 %}
+                Cancelled by Vendor
+                {% elif order.status == 7 %}
+                Incomplete
+                {% endif %}</td>
+              <td>{{ order.created_at|date:"d M, Y" }}</td>
+              <td><a href="{% url 'detail_order' order_id=order.pk %}"  class="btn btn-sm btn-primary">See</a></td>
             </tr>
-            <tr>
-              <th scope="row">Car Fixing</th>
-              <td>Engine</td>
-              <td>Done</td>
-              <td>01/01/2019</td>
-              <td><a href="{% url 'detail_order' %}" class="btn btn-sm btn-primary">See</a></td>
-            </tr>
-            <tr>
-              <th scope="row">Car Fixing</th>
-              <td>Engine</td>
-              <td>Done</td>
-              <td>01/01/2019</td>
-              <td><a href="{% url 'detail_order' %}" class="btn btn-sm btn-primary">See</a></td>
-            </tr>
-            <tr>
-              <th scope="row">Car Fixing</th>
-              <td>Engine</td>
-              <td>Done</td>
-              <td>01/01/2019</td>
-              <td><a href="{% url 'detail_order' %}" class="btn btn-sm btn-primary">See</a></td>
-            </tr>
-            <tr>
-              <th scope="row">Car Fixing</th>
-              <td>Engine</td>
-              <td>Done</td>
-              <td>01/01/2019</td>
-              <td><a href="{% url 'detail_order' %}" class="btn btn-sm btn-primary">See</a></td>
-            </tr>
-            <tr>
-              <th scope="row">Car Fixing</th>
-              <td>Engine</td>
-              <td>Done</td>
-              <td>01/01/2019</td>
-              <td><a href="{% url 'detail_order' %}" class="btn btn-sm btn-primary">See</a></td>
-            </tr>
-            <tr>
-              <th scope="row">Car Fixing</th>
-              <td>Engine</td>
-              <td>Done</td>
-              <td>01/01/2019</td>
-              <td><a href="{% url 'detail_order' %}" class="btn btn-sm btn-primary">See</a></td>
-            </tr>
-            <tr>
-              <th scope="row">Car Fixing</th>
-              <td>Engine</td>
-              <td>Done</td>
-              <td>01/01/2019</td>
-              <td><a href="{% url 'detail_order' %}" class="btn btn-sm btn-primary">See</a></td>
-            </tr>
-            <tr>
-              <th scope="row">Car Fixing</th>
-              <td>Engine</td>
-              <td>Done</td>
-              <td>01/01/2019</td>
-              <td><a href="{% url 'detail_order' %}" class="btn btn-sm btn-primary">See</a></td>
-            </tr>
-            <tr>
-              <th scope="row">Car Fixing</th>
-              <td>Engine</td>
-              <td>Done</td>
-              <td>01/01/2019</td>
-              <td><a href="{% url 'detail_order' %}" class="btn btn-sm btn-primary">See</a></td>
-            </tr>
-            <tr>
-              <th scope="row">Car Fixing</th>
-              <td>Engine</td>
-              <td>Done</td>
-              <td>01/01/2019</td>
-              <td><a href="{% url 'detail_order' %}" class="btn btn-sm btn-primary">See</a></td>
-            </tr>
+            {% endfor %}
             </tbody>
           </table>
         </div>

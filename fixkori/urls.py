@@ -72,7 +72,7 @@ urlpatterns = [
     url(r'^list_order/', view=ListOrder.as_view(), name='list_order'),
     url(r'^add_item/', view=AddItem.as_view(), name='add_item'),
     url(r'^add_area/', view=AddArea.as_view(), name='add_area'),
-    url(r'^detail_order/', view=DetailOrder.as_view(), name='detail_order'),
+    url(r'^detail_order/(?P<order_id>[0-9]+)/', view=DetailOrder.as_view(), name='detail_order'),
     url(r'^order_manage/', view=OrderManage.as_view(), name='order_manage'),
     url(r'^manage/', view=Manage.as_view(), name='manage'),
     url(r'^user/', view=CustomerDashboard.as_view(), name='user'),

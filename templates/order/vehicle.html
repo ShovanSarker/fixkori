@@ -39,50 +39,58 @@
 
             <!-- Type * area*issue*date&time*service provider -->
             <div class="signup-form-conent">
-                <form method="POST" id="signup-form" class="signup-form" action="">{% csrf_token %}
-                    <div class="form-group">
-                        <input list="zone" name="zone" placeholder="Your Zone">
-                        <datalist id="zone">
-                            <option value="Mirpur">
-                            <option value="Uttara">
-                            <option value="Shantinagar">
-                            <option value="Dhanmondi">
-                            <option value="Banani">
+                <form method="POST" id="signup-form" class="signup-form" action="{% url 'place_order' %}">{% csrf_token %}
+                    <div class="form-group" style="margin-bottom: 0px;">
+                        <input list="area" name="area" placeholder="Your Zone">
+                        <datalist id="area">
+                            {% for area in areas %}
+                            <option value="{{ area.area_name }}">
+                            {% endfor %}
                         </datalist>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" style="margin-bottom: 0px;">
                         <!--<label for="issue">Issue</label>-->
-                        <input type="text" name="issue" id="issue" placeholder="Issue">
+                        <input type="text" name="description" id="description" placeholder="Issue">
                     </div>
 
-                    <div class="form-group">
-                        <!--<label for="brand">Car Brand</label>-->
-                        <input type="text" name="brand" id="brand" placeholder="Car Brand">
-                    </div>
-
-                    <div class="form-group">
-                        <!--<label for="model">Car Name or Series</label>-->
-                        <input type="text" name="model" id="model" placeholder="Car Model">
-                    </div>
-
-                    <div class="form-group">
-                        <input list="type" name="type" placeholder="Car Type">
-                        <datalist id="type">
-                            <option value="Sedan">
-                            <option value="SUV">
-                            <option value="TRUCK">
+                    <div class="form-group" style="margin-bottom: 0px;">
+                        <input list="item" name="item" placeholder="Vehicle Type">
+                        <datalist id="item">
+                            {% for electric_item in electric_items %}
+                            <option value="{{ electric_item.item_name }}">
+                            {% endfor %}
                         </datalist>
                     </div>
 
-                    <div class="form-group">
-                        <!--<label for="model">Car Name or Series</label>-->
-                        <input type="hidden" name="item" id="item" value="vehicle">
+                    <div class="form-group" style="margin-bottom: 0px;">
+                        <!--<label for="brand">Car Brand</label>-->
+                        <input type="text" name="brand" id="brand" placeholder="Vehicle Brand">
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" style="margin-bottom: 0px;">
+                        <!--<label for="model">Car Name or Series</label>-->
+                        <input type="text" name="model" id="model" placeholder="Vehicle Model">
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 0px;">
+                        <!--<label for="model">Car Name or Series</label>-->
+                        <input type="hidden" name="service_type" id="service_type" value="2">
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 0px;">
+                        <!--<label for="model">Car Name or Series</label>-->
+                        <input type="date" name="date" id="date">
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 0px;">
                         <!--<label for="issue">Issue</label>-->
                         <input type="text" name="instruction" id="instruction" placeholder="Instruction">
+                    </div>
+
+                    <div class="form-group">
+                        <!--<label for="issue">Issue</label>-->
+                        <input type="text" name="address" id="address" placeholder="Service Address">
                     </div>
 
                     <button type="submit" class="btn btn-primary">Submit</button>

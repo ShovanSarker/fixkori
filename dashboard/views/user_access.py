@@ -2,6 +2,7 @@ from __future__ import print_function
 from django.views import View
 
 from django.shortcuts import render, redirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 
 from django.urls import reverse
@@ -25,7 +26,9 @@ from fixkori_api.models import UserServiceProviderArea
 from fixkori_api.models import UserServiceProviderItem
 from fixkori_api.models import Order
 
-from utility.uuid_generator import UUID
+from utility import UUID
+from utility import RandomPassword
+from utility import send_now
 import constants
 
 
@@ -295,9 +298,11 @@ class ListOrder(View):
         if logged_in_user.user_type == constants.USER_TYPE_ADMIN:
             '''admin'''
             logged_in_user_object = UserAdmin.objects.get(user=logged_in_user)
+            all_orders = Order.objects.all()
             all_items = Item.objects.filter(active=True)
             all_areas = Area.objects.filter(active=True).order_by('area_name')
             return render(request, 'admin_vendor/list_order.html', {'admin': True,
+                                                                    'all_orders': all_orders,
                                                                     'all_areas': all_areas,
                                                                     'all_items': all_items,
                                                                     'logged_in_user_object': logged_in_user_object})
@@ -357,8 +362,29 @@ class ListVendor(View):
 
 class DetailOrder(View):
     @staticmethod
-    def get(request):
-        return render(request, 'admin_vendor/detail_order.html')
+    def get(request, order_id):
+        if 'token' not in request.session:
+            return render(request, 'customer/index.html')
+        logged_in_user = Session.get_user_by_session(request.session['token'])
+        if logged_in_user is None:
+            return render(request, 'customer/index.html')
+
+        if logged_in_user.user_type == constants.USER_TYPE_ADMIN:
+            '''admin'''
+            selected_order = Order.objects.get(pk=order_id)
+            logged_in_user_object = UserAdmin.objects.get(user=logged_in_user)
+            all_orders = Order.objects.all()
+            all_vendors = UserServiceProvider.objects.filter(active=True)
+            all_items = Item.objects.filter(active=True)
+            all_areas = Area.objects.filter(active=True).order_by('area_name')
+            return render(request, 'admin_vendor/detail_order.html', {'admin': True,
+                                                                      'all_vendors': all_vendors,
+                                                                      'selected_order': selected_order,
+                                                                      'all_areas': all_areas,
+                                                                      'all_items': all_items,
+                                                                      'logged_in_user_object': logged_in_user_object})
+        else:
+            return render(request, 'customer/index.html')
 
 
 class DetailUser(View):
@@ -409,8 +435,16 @@ class DetailVendor(View):
 
 class OrderManage(View):
     @staticmethod
-    def get(request):
-        return render(request, 'admin_vendor/order_manage.html')
+    def post(request):
+        print(request.POST)
+        selected_order = Order.objects.get(pk=request.POST['order_id'])
+        if not request.POST['status'] == '----':
+            selected_order.status = int(request.POST['status'])
+        if not request.POST['service_provider'] == '----':
+            selected_service_provider = UserServiceProvider.objects.get(pk=request.POST['service_provider'])
+            selected_order.service_provider = selected_service_provider
+        selected_order.save()
+        return HttpResponseRedirect(reverse("detail_order", args=[request.POST['order_id']]))
 
 
 class Manage(View):
@@ -461,8 +495,8 @@ class CustomerServiceDetail(View):
             if selected_order.customer == logged_in_user_object:
 
                 return render(request, 'customer/service_detail.html', {'admin': True,
-                                                                    'selected_order': selected_order,
-                                                                    'logged_in_user_object': logged_in_user_object})
+                                                                        'selected_order': selected_order,
+                                                                        'logged_in_user_object': logged_in_user_object})
             else:
                 return redirect(reverse('service_list'))
         return redirect(reverse('home'))
@@ -523,7 +557,6 @@ class OrderElectronic(View):
                                                              'logged_in_user_object': logged_in_user_object})
         return redirect(reverse('home'))
 
-
     @staticmethod
     def post(request):
         print(request.POST)
@@ -533,7 +566,22 @@ class OrderElectronic(View):
 class OrderVehicle(View):
     @staticmethod
     def get(request):
-        return render(request, 'order/vehicle.html')
+        if 'token' not in request.session:
+            return redirect(reverse('home'))
+        logged_in_user = Session.get_user_by_session(request.session['token'])
+        if logged_in_user is None:
+            return redirect(reverse('home'))
+
+        if logged_in_user.user_type == constants.USER_TYPE_CLIENT:
+            '''client'''
+            logged_in_user_object = UserClient.objects.get(user=logged_in_user)
+            electric_items = Item.objects.filter(service_type=constants.SERVICE_TYPE_VEHICLE)
+            areas = Area.objects.all()
+            return render(request, 'order/vehicle.html', {'admin': True,
+                                                          'electric_items': electric_items,
+                                                          'areas': areas,
+                                                          'logged_in_user_object': logged_in_user_object})
+        return redirect(reverse('home'))
 
     @staticmethod
     def post(request):
@@ -658,7 +706,8 @@ class Register(View):
         phone_number = request.POST['phone_number']
         user_email = request.POST['user_email']
         address = None
-        password = 'abcd1234'
+        password = RandomPassword.random_password_generator(6)
+        print(password)
         if is_new_user(user_name, phone_number, user_email):
             hash_key = UUID.uuid_generator()
             add_to_login_list(hash_key, user_email, password)
@@ -671,7 +720,10 @@ class Register(View):
                                   address=address,
                                   user_email=user_email)
             new_user.save()
-            return render(request, 'order/signup.html',
+            greeting_text = 'Welcome to fixkori! Your Password is: ' + password + \
+                            '. Please change the password once you log in. Thank you!'
+            send_now(phone_number, greeting_text)
+            return render(request, 'order/login.html',
                           {'success': True,
                            'message': 'Successfully Added!'})
         else:
