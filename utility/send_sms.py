@@ -1,5 +1,4 @@
 import urllib
-import urllib2
 
 
 def send_now(number, text):
@@ -11,5 +10,5 @@ def send_now(number, text):
                                'password': password,
                                'number': number,
                                'message': message})
-    urllib2.urlopen('http://66.45.237.70/api.php?' + params)
+    urllib.request.urlopen('http://66.45.237.70/api.php?' + params)
     return 'Success'
