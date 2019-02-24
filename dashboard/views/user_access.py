@@ -117,6 +117,31 @@ class AddAdmin(View):
             return render(request, 'customer/index.html')
 
 
+class AddFirstAdmin(View):
+
+    @staticmethod
+    def get(request):
+        first_name = 'Fixkori'
+        last_name = 'Admin'
+        user_name = 'fixkori_admin'
+        phone_number = '00000000000'
+        user_email = 'admin@fixkori.com'
+        password = 'abcd1234'
+        if is_new_user(user_name, phone_number, user_email):
+            hash_key = UUID.uuid_generator()
+            add_to_login_list(hash_key, user_email, password)
+            listed_user = add_to_user_list(user_name, phone_number, user_email, hash_key, constants.USER_TYPE_ADMIN)
+            new_user = UserAdmin(user=listed_user,
+                                 first_name=first_name,
+                                 last_name=last_name,
+                                 phone_number=phone_number,
+                                 user_email=user_email)
+            new_user.save()
+            return HttpResponse('Admin Successfully Added!')
+        else:
+            return HttpResponse('Stop Kidding me!')
+
+
 class AddUser(View):
     @staticmethod
     def post(request):

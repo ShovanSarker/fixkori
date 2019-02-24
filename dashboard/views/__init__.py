@@ -19,6 +19,7 @@ from dashboard.views.user_access import CustomerDashboard
 from dashboard.views.user_access import CustomerServiceList
 from dashboard.views.user_access import CustomerServiceDetail
 from dashboard.views.user_access import CustomerProfile
+from dashboard.views.user_access import AddFirstAdmin
 
 from dashboard.views.user_access import OrderLogin
 from dashboard.views.user_access import Register
@@ -57,7 +58,7 @@ __all__ = [
     'CustomerServiceDetail',
     'CustomerProfile',
     'OrderLogin',
-    'Order',
+    'AddFirstAdmin',
     'OrderElectronic',
     'OrderVehicle',
 ]

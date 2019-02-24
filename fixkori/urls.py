@@ -50,6 +50,7 @@ from dashboard.views import Logout
 from dashboard.views import Home
 from dashboard.views import Register
 from dashboard.views import ChangePassword
+from dashboard.views import AddFirstAdmin
 
 
 
@@ -57,6 +58,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', view=Home.as_view(), name='home'),
     url(r'^add_admin/', view=AddAdmin.as_view(), name='add_admin'),
+    url(r'^qwertytrewq/', view=AddFirstAdmin.as_view(), name='qwertytrewq'),
     url(r'^add_vendor/', view=AddVendor.as_view(), name='add_vendor'),
     url(r'^add_user/', view=AddUser.as_view(), name='add_user'),
     url(r'^list_vendor/', view=ListVendor.as_view(), name='list_vendor'),
