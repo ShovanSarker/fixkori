@@ -41,19 +41,19 @@ class AdminIndex(View):
 class AddArea(View):
     @staticmethod
     def get(request):
-        # new_area = Area(area_name=request.GET['area_name'],
-        #                 district=request.GET['district'],
-        #                 division=request.GET['division'])
-        # new_area.save()
+        new_area = Area(area_name=request.GET['area_name'],
+                        district=request.GET['district'],
+                        division=request.GET['division'])
+        new_area.save()
         return render(request, 'admin_vendor/add_area.html')
 
 
 class AddItem(View):
     @staticmethod
     def get(request):
-        # new_item = Item(item_name=request.GET['item_name'],
-        #                 service_type=request.GET['service_type'])
-        # new_item.save()
+        new_item = Item(item_name=request.GET['item_name'],
+                        service_type=request.GET['service_type'])
+        new_item.save()
         return render(request, 'admin_vendor/add_item.html')
 
 
