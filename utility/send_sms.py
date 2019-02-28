@@ -6,7 +6,7 @@ def send_now(number, text):
     password = 'R8W54DN7'
     number = number
     message = text
-    params = urllib.urlencode({'username': username,
+    params = urllib.parse.urlencode({'username': username,
                                'password': password,
                                'number': number,
                                'message': message})
