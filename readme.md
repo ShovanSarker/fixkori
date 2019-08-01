@@ -20,7 +20,7 @@ After the required libraries installed, go inside the project directory and chec
 ```bash
 python manage.py makemigrations
 python manage.py migrate
-python manage.py runserver 0.0.0.0:800
+python manage.py runserver 0.0.0.0:8000
 ```
 these commands will update the database structure(if necessary) and run the service on [localhost](http://localhost:8000) on 8000 port.
 
